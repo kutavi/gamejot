@@ -8,13 +8,13 @@ const CONTAINER: ViewStyle = {
   flex: 1,
   padding: 16,
   paddingVertical: 50,
-  backgroundColor: color.background,
+  backgroundColor: color.white,
 }
 
 const ERROR_DETAILS_CONTAINER: ViewStyle = {
   width: "100%",
   maxHeight: "60%",
-  backgroundColor: color.line,
+  backgroundColor: color.lightGrey,
   marginVertical: 15,
   paddingHorizontal: 10,
   paddingBottom: 15,
@@ -24,23 +24,23 @@ const ERROR_DETAILS_CONTAINER: ViewStyle = {
 const BTN_RESET: ViewStyle = {
   paddingHorizontal: 40,
 
-  backgroundColor: color.primary,
+  backgroundColor: color.orange,
 }
 
 const TITLE_ERROR: TextStyle = {
-  color: color.error,
+  color: color.angry,
   fontWeight: "bold",
   paddingVertical: 15,
 }
 
 const FRIENDLY_SUBTITLE: TextStyle = {
-  color: color.palette.black,
+  color: color.black,
   fontWeight: "normal",
   paddingVertical: 15,
 }
 
 const CONTENT_ERROR: TextStyle = {
-  color: color.error,
+  color: color.angry,
   fontWeight: "bold",
   paddingVertical: 15,
 }

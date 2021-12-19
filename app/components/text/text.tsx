@@ -1,20 +1,20 @@
 import * as React from "react"
-import { Text as ReactNativeText } from "react-native"
-import { presets } from "./text.presets"
-import { TextProps } from "./text.props"
-import { translate } from "../../i18n"
+import { Text as ReactNativeText , StyleProp, TextProps as TextProperties, TextStyle } from "react-native"
+import { TextPresets , presets } from "./styles"
+import { TransKeyPath , translate } from "../../i18n"
 
-/**
- * For your text displaying needs.
- *
- * This component is a HOC over the built-in React Native one.
- */
+export interface TextProps extends TextProperties {
+  children?: React.ReactNode
+  textKey?: TransKeyPath
+  text?: string
+  style?: StyleProp<TextStyle>
+  preset?: TextPresets
+}
+
 export function Text(props: TextProps) {
-  // grab the props
-  const { preset = "default", tx, txOptions, text, children, style: styleOverride, ...rest } = props
+  const { preset = "default", textKey, text, children, style: styleOverride, ...rest } = props
 
-  // figure out which content to use
-  const i18nText = tx && translate(tx, txOptions)
+  const i18nText = textKey && translate(textKey)
   const content = i18nText || text || children
 
   const style = presets[preset] || presets.default

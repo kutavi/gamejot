@@ -23,7 +23,7 @@ export const presets = {
    */
   fixed: {
     outer: {
-      backgroundColor: color.background,
+      backgroundColor: color.white,
       flex: 1,
       height: "100%",
     } as ViewStyle,
@@ -42,7 +42,7 @@ export const presets = {
    */
   scroll: {
     outer: {
-      backgroundColor: color.background,
+      backgroundColor: color.white,
       flex: 1,
       height: "100%",
     } as ViewStyle,

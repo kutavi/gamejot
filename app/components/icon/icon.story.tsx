@@ -12,8 +12,5 @@ storiesOf("Icon", module)
       <UseCase text="back" usage="The icon for going back">
         <Icon icon="back" />
       </UseCase>
-      <UseCase text="bullet" usage="The icon for a bullet point">
-        <Icon icon="bullet" />
-      </UseCase>
     </Story>
   ))

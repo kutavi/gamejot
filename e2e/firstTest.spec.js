@@ -8,8 +8,8 @@ describe("Example", () => {
     await reloadApp()
   })
 
-  it("should have welcome screen", async () => {
-    await expect(element(by.id("WelcomeScreen"))).toBeVisible()
+  it("should have main screen", async () => {
+    await expect(element(by.id("MainScreen"))).toBeVisible()
   })
 
   it("should go to next screen after tap", async () => {

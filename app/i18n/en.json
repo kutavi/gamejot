@@ -1,15 +1,12 @@
 {
-  "ok": "OK!",
+  "ok": "OK",
   "cancel": "Cancel",
   "back": "Back",
   "or": "OR",
   "errors": {
-    "invalidEmail": "Invalid email address.",
     "genericError": "Something went wrong!"
   },
   "enterGameTitle": "Tap to enter game title",
-  "readyForLaunch": "Ready for launch.",
-  "continue": "CONTINUE",
   "storybook": {
     "placeholder": "Placeholder",
     "field": "Field"

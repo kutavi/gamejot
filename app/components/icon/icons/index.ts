@@ -3,7 +3,8 @@ export const icons = {
   bug: require("./ladybug.png"),
   camera: require("./camera.png"),
   edit: require("./edit.png"),
-  checked: require("./checked.png"),
+  checked: require("./check.png"),
+  close: require("./close.png"),
 }
 
 export type IconTypes = keyof typeof icons

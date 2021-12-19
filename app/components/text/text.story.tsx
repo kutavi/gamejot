@@ -12,7 +12,7 @@ declare let module
 
 const VIEWSTYLE = {
   flex: 1,
-  backgroundColor: color.storybookDarkBg,
+  backgroundColor: color.black,
 }
 const viewStyleArray: ViewStyle[] = [VIEWSTYLE, { backgroundColor: "#7fff00" }]
 
@@ -56,8 +56,8 @@ storiesOf("Text", module)
       </UseCase>
       <UseCase text="tx" usage="Used for looking up i18n keys.">
         <View style={VIEWSTYLE}>
-          <Text tx="common.ok" />
-          <Text tx="common.cancel" />
+          <Text textKey="ok" />
+          <Text textKey="cancel" />
         </View>
       </UseCase>
       <UseCase
