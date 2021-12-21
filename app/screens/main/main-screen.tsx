@@ -66,7 +66,7 @@ export const MainScreen: FC<StackScreenProps<NavigatorParamList, "main">> = obse
           <Button preset="link" onPress={() => openTextEditor(!isTextEditorOpen)}>
              <Icon style={ICON} icon={"edit"} />
           </Button>
-          <Text style={TITLE} preset="header" tx="or" />
+          <Text style={TITLE} preset="header" textKey="or" />
           <Button preset="link" onPress={() => null}>
              <Icon style={ICON} icon={"camera"} />
           </Button>

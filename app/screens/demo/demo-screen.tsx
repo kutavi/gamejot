@@ -137,31 +137,31 @@ export const DemoScreen: FC<StackScreenProps<NavigatorParamList, "demo">> = obse
 
     return (
       <View testID="DemoScreen" style={FULL}>
-        <GradientBackground colors={["#422443", "#281b34"]} />
+        <GradientBackground set={'purple'} />
         <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
           <Header
-            headerTx="demoScreen.howTo"
+            headerText="demoScreen.howTo"
             leftIcon="back"
             onLeftPress={goBack}
             style={HEADER}
             titleStyle={HEADER_TITLE}
           />
-          <Text style={TITLE} preset="header" tx="demoScreen.title" />
-          <Text style={TAGLINE} tx="demoScreen.tagLine" />
+          <Text style={TITLE} preset="header" text="demoScreen.title" />
+          <Text style={TAGLINE} text="demoScreen.tagLine" />
       
           <View>
             <Button
               style={DEMO}
               textStyle={DEMO_TEXT}
-              tx="demoScreen.reactotron"
+              text="demoScreen.reactotron"
               onPress={demoReactotron}
             />
-            <Text style={HINT} tx={`demoScreen.${Platform.OS}ReactotronHint` as const} />
+            <Text style={HINT} text={`demoScreen.${Platform.OS}ReactotronHint` as const} />
           </View>
           <Button
             style={DEMO}
             textStyle={DEMO_TEXT}
-            tx="demoScreen.demoList"
+            text="demoScreen.demoList"
             onPress={() => navigation.navigate("demoList")}
           />
           <Image source={logoIgnite} style={IGNITE} />

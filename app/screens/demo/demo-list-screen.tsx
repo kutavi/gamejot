@@ -62,7 +62,7 @@ export const DemoListScreen: FC<StackScreenProps<NavigatorParamList, "demoList">
         <GradientBackground set={'purple'} />
         <Screen style={CONTAINER} preset="fixed" backgroundColor={color.transparent}>
           <Header
-            headerTx="demoListScreen.title"
+            headerText="demoListScreen.title"
             leftIcon="back"
             onLeftPress={goBack}
             style={HEADER}
