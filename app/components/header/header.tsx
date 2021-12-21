@@ -8,9 +8,11 @@ import { TextField } from "../text-field/text-field"
 
 import { IconTypes } from "../icon/icons"
 import { ICON, INPUT, ROOT, TITLE, TITLE_MIDDLE } from "./styles"
+import { useStores } from "../../models"
 
 export interface HeaderProps {
   headerText?: string
+  headerId?: number
   leftIcon?: IconTypes
   onLeftPress?(): void
   rightIcon?: IconTypes
@@ -21,11 +23,15 @@ export interface HeaderProps {
 export function Header(props: HeaderProps) {
   const {
     headerText,
+    headerId,
     style,
     titleStyle,
   } = props
-  const header = headerText || translate('enterGameTitle')
   const [isEdited, useEdit] = useState<boolean>(false)
+  const [headerTitle, useUpdateText] = useState<string>(headerText || '')
+  const displayText = headerText || translate('enterGameTitle')
+  
+  const { gamesStore: {updateGameName, createGame} } = useStores()
 
   const toggleInput = (value) => {
     useEdit(value)
@@ -35,13 +41,14 @@ export function Header(props: HeaderProps) {
     <View style={[ROOT, style]}>
       <View style={TITLE_MIDDLE}>
          {isEdited ? 
-         <TextField autoFocus style={INPUT} />
+         <TextField autoFocus style={INPUT} onChangeText={useUpdateText} defaultValue={headerTitle} />
          : 
-         <Button preset="link" onPress={() => toggleInput(true)}><Text style={[TITLE, titleStyle]} text={header} preset='header' />
+         <Button preset="link" onPress={() => toggleInput(true)}><Text style={[TITLE, titleStyle]} text={displayText} preset='header' />
         </Button>}
       </View>
       {isEdited && (
         <Button preset="link" onPress={() => {
+          headerId ? updateGameName(headerId, headerTitle) : createGame(headerTitle)
           toggleInput(false)
         }}>
           <Icon style={ICON} icon={'checked'} />

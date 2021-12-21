@@ -15,6 +15,7 @@ import {
 import { color } from "../../theme"
 import { NavigatorParamList } from "../../navigators"
 import { CONTAINER, CONTENT, FOOTER, FOOTER_CONTENT, FULL, HEADER_TITLE, ICON, TEXTAREA, TITLE } from "./styles"
+import { useStores } from "../../models"
 const image = require("./images.jpg")
 
 
@@ -22,11 +23,14 @@ export const MainScreen: FC<StackScreenProps<NavigatorParamList, "main">> = obse
   ({ navigation }) => {
     const [isTextEditorOpen, openTextEditor] = useState<boolean>(false)
     const nextScreen = () => navigation.navigate("demo")
+    const { gamesStore: { games } } = useStores()
 
+    const viewedGame = games?.[0] || {}
+console.log('GAMESS', games[0])
     const gameSavedItems = [{text: 'this text here is a memo', type: 'text'}, {type: 'photo', image}]
     return (
       <>
-      <Header style={FOOTER} titleStyle={HEADER_TITLE} />
+      <Header style={FOOTER} titleStyle={HEADER_TITLE} headerText={viewedGame.name} headerId={viewedGame.id} />
       <View testID="WelcomeScreen" style={FULL}>
         <GradientBackground set={'purple'} />
         <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
