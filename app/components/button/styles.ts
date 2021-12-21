@@ -34,7 +34,4 @@ export const textPresets: Record<ButtonPresetNames, TextStyle> = {
   } as TextStyle,
 }
 
-/**
- * A list of preset names.
- */
 export type ButtonPresetNames = keyof typeof viewPresets
