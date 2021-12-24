@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import { View, ViewStyle, TextStyle, StyleProp } from "react-native"
+import { View, ViewStyle, StyleProp } from "react-native"
 import { Button } from "../button/button"
 import { Text } from "../text/text"
 import { Icon } from "../icon/icon"
@@ -18,17 +18,16 @@ export interface HeaderProps {
   rightIcon?: IconTypes
   onRightPress?(): void
   style?: StyleProp<ViewStyle>
-  titleStyle?: StyleProp<TextStyle>
 }
 export function Header(props: HeaderProps) {
   const {
     headerText,
     headerId,
     style,
-    titleStyle,
   } = props
   const [isEdited, useEdit] = useState<boolean>(false)
   const [headerTitle, useUpdateText] = useState<string>(headerText || '')
+  const [isMenuOpen, useOpenMenu] = useState<boolean>(false)
   const displayText = headerText || translate('enterGameTitle')
   
   const { gamesStore: {updateGameName, createGame} } = useStores()
@@ -47,10 +46,12 @@ export function Header(props: HeaderProps) {
          <Button preset="link" onPress={() => useEdit(true)}><Text style={TITLE} text={displayText} preset='header' />
         </Button>}
       </View>
-      {isEdited && (
+      {isEdited ? (
         <Button preset="confirm" onPress={saveInput} textKey="ok">
         </Button>
-      )}
+      ) : <Button preset="primary" onPress={() => useOpenMenu(!isMenuOpen)}>
+        <Icon style={ICON} icon={"menu"} />
+      </Button>}
     </View>
   )
 }

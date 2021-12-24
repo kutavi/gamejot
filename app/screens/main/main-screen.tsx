@@ -5,16 +5,14 @@ import { observer } from "mobx-react-lite"
 import {
   Button,
   Header,
-  Screen,
   Text,
   GradientBackground,
   TextField,
   Icon,
   AutoImage,
 } from "../../components"
-import { color } from "../../theme"
 import { NavigatorParamList } from "../../navigators"
-import { CONTAINER, CONTENT, BAR, FOOTER_CONTENT, FULL, ICON, TEXTAREA, TILE, TITLE } from "./styles"
+import { CONTENT, BAR, FOOTER_CONTENT, FULL, ICON, TEXTAREA, TILE, TITLE } from "./styles"
 import { useStores } from "../../models"
 import { ListItemType } from "../../models/games-store/game"
 import { ImagePicker } from "../../components/image-picker/image-picker"
@@ -70,7 +68,6 @@ export const MainScreen: FC<StackScreenProps<NavigatorParamList, "main">> = obse
       <Header style={BAR} headerText={viewedGame?.name} headerId={viewedGame?.id} />
       <View testID="WelcomeScreen" style={FULL}>
         <GradientBackground set={'purple'} />
-        <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
         <FlatList
         data={sortedList}
         renderItem={(v) =>
@@ -80,7 +77,6 @@ export const MainScreen: FC<StackScreenProps<NavigatorParamList, "main">> = obse
           })
         }
         keyExtractor={(item) => item.id.toString()}></FlatList>
-        </Screen>
         <Modal
         animationType="none"
         visible={isTextEditorOpen}
