@@ -7,12 +7,25 @@ export const ROOT: ViewStyle = {
   alignItems: "center",
   paddingTop: spacing[3],
   paddingBottom: spacing[3],
-  justifyContent: "flex-start",
+  justifyContent: "space-between",
 }
 
-export const TITLE: TextStyle = {
-  color: color.white,
+export const CONFIRM: ViewStyle = {
+  borderTopLeftRadius: 0,
+  borderBottomLeftRadius: 0,
 }
-export const TITLE_MIDDLE: ViewStyle = { flex: 1, justifyContent: "center" }
+
+export const FULL: ViewStyle = {
+  flex: 1,
+}
+export const HEADER_TITLE: TextStyle = {
+  fontSize: 22,
+  color: color.lighterGrey,
+}
+
+export const INPUT: ViewStyle = {
+  borderTopRightRadius: 0,
+  borderBottomRightRadius: 0,
+}
+
 export const ICON: ImageStyle = { width: 24, height: 24 }
-export const INPUT: TextStyle = { marginRight: 16 }

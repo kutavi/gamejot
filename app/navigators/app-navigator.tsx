@@ -1,49 +1,68 @@
-/**
- * The app navigator (formerly "AppNavigator" and "MainNavigator") is used for the primary
- * navigation flows of your app.
- * Generally speaking, it will contain an auth flow (registration, login, forgot password)
- * and a "main" flow which the user will use once logged in.
- */
 import React from "react"
-import { useColorScheme } from "react-native"
+import { useColorScheme, View } from "react-native"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { MainScreen, DemoScreen, DemoListScreen } from "../screens"
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItem,
+} from "@react-navigation/drawer"
+import { MainScreen } from "../screens"
 import { navigationRef } from "./navigation-utilities"
+import { useStores } from "../models"
+import { GradientBackground, Icon, Text } from "../components"
+import { Swipeable } from "../components/swipeable/swipeable"
+import { ACTION, ACTION_CONTAINER, ACTION_LABEL, DRAWER, DRAWER_MENU_ITEM, ICON, LABEL } from "./styles"
 
-/**
- * This type allows TypeScript to know what routes are defined in this navigator
- * as well as what properties (if any) they might take when navigating to them.
- *
- * If no params are allowed, pass through `undefined`. Generally speaking, we
- * recommend using your MobX-State-Tree store(s) to keep application state
- * rather than passing state through navigation params.
- *
- * For more information, see this documentation:
- *   https://reactnavigation.org/docs/params/
- *   https://reactnavigation.org/docs/typescript#type-checking-the-navigator
- */
 export type NavigatorParamList = {
-  main: undefined
-  demo: undefined
-  demoList: undefined
+  [key: string]: undefined
 }
 
-// Documentation: https://reactnavigation.org/docs/stack-navigator/
-const Stack = createNativeStackNavigator<NavigatorParamList>()
+const Drawer = createDrawerNavigator<NavigatorParamList>()
 
+const CustomDrawerContent = (props) => {
+  console.log('REDRAWWW')
+  const {
+    gamesStore: { games, updateLastViewed, createGame, deleteGame },
+  } = useStores()
+  return <DrawerContentScrollView {...props} contentContainerStyle={DRAWER}>
+    <GradientBackground set={'purple'} />
+    <Swipeable
+        data={games}
+        deleteAction={(id) => {
+          deleteGame(id)
+        }}
+        renderChildren={(game) =>
+          <DrawerItem
+            key={game.id}
+            label={game.name}
+            onPress={() => {
+              updateLastViewed(game.id)        
+              props.navigation.closeDrawer()
+            }}
+            style={DRAWER_MENU_ITEM}
+            labelStyle={LABEL} 
+            />}
+      />
+      <DrawerItem
+        label={() => <View style={ACTION_CONTAINER}><Icon icon="add" style={ICON} /><Text textKey={'add_game'} style={ACTION_LABEL} /></View>}
+        onPress={() => {
+          createGame('New Game')
+          props.navigation.closeDrawer()
+        }}
+        style={ACTION} />
+  </DrawerContentScrollView>
+}
 const AppStack = () => {
   return (
-    <Stack.Navigator
+    <Drawer.Navigator
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="main"
+      initialRouteName={'main'}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
-      <Stack.Screen name="main" component={MainScreen} />
-      <Stack.Screen name="demo" component={DemoScreen} />
-      <Stack.Screen name="demoList" component={DemoListScreen} />
-    </Stack.Navigator>
+    <Drawer.Screen name={'main'} component={MainScreen} />
+    </Drawer.Navigator>
   )
 }
 
@@ -64,14 +83,5 @@ export const AppNavigator = (props: NavigationProps) => {
 
 AppNavigator.displayName = "AppNavigator"
 
-/**
- * A list of routes from which we're allowed to leave the app when
- * the user presses the back button on Android.
- *
- * Anything not on this list will be a standard `back` action in
- * react-navigation.
- *
- * `canExit` is used in ./app/app.tsx in the `useBackButtonHandler` hook.
- */
 const exitRoutes = ["main"]
 export const canExit = (routeName: string) => exitRoutes.includes(routeName)

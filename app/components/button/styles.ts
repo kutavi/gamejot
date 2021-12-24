@@ -2,8 +2,8 @@ import { ViewStyle, TextStyle } from "react-native"
 import { color, spacing } from "../../theme"
 
 const BASE_VIEW: ViewStyle = {
-  paddingVertical: spacing[2],
-  paddingHorizontal: spacing[2],
+  paddingVertical: spacing[3],
+  paddingHorizontal: spacing[3],
   borderRadius: 4,
   justifyContent: "center",
   alignItems: "center",
@@ -11,6 +11,8 @@ const BASE_VIEW: ViewStyle = {
 
 const BASE_TEXT: TextStyle = {
   paddingHorizontal: spacing[3],
+  fontSize: 16,
+  color: color.white,
 }
 
 export const viewPresets: Record<string, ViewStyle> = {
@@ -27,9 +29,9 @@ export const viewPresets: Record<string, ViewStyle> = {
 }
 
 export const textPresets: Record<ButtonPresetNames, TextStyle> = {
-  primary: { ...BASE_TEXT, fontSize: 16, color: color.white } as TextStyle,
-  confirm: { ...BASE_TEXT, fontSize: 16, color: color.white },
-  cancel: { ...BASE_TEXT, fontSize: 16, color: color.white },
+  primary: { ...BASE_TEXT },
+  confirm: { ...BASE_TEXT },
+  cancel: { ...BASE_TEXT },
   link: {
     ...BASE_TEXT,
     color: color.black,

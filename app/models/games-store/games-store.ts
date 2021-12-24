@@ -7,6 +7,7 @@ export const GamesStoreModel = types
   .model("GamesStore")
   .props({
     games: types.optional(types.array(GameModel), []),
+    lastViewed: types.optional(types.number, 0),
   })
   .extend(withEnvironment)
   .actions((self) => ({
@@ -20,6 +21,15 @@ export const GamesStoreModel = types
       const id = generateId(self.games)
       const newGames = self.games.concat([{ id, name: newGameName }])
       self.games.replace(newGames)
+      self.lastViewed = id
+    },
+    deleteGame: (id: number) => {
+      const updatedGames = self.games.filter((game) => game.id !== id)
+      self.games.replace(updatedGames)
+      // self.lastViewed = id
+    },
+    updateLastViewed: (gameId: number) => {
+      self.lastViewed = gameId
     },
     createTextItem: (gameId: number, textContent: string) => {
       const listToUpdate = self.games.find((g) => g.id === gameId).list

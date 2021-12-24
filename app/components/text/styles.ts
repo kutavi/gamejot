@@ -3,7 +3,7 @@ import { color, typography } from "../../theme"
 
 const BASE: TextStyle = {
   fontFamily: typography.primary,
-  color: color.black,
+  color: color.white,
   fontSize: 15,
 }
 
@@ -12,7 +12,7 @@ export const presets = {
   bold: { ...BASE, fontWeight: "bold" } as TextStyle,
   header: { ...BASE, fontSize: 22, fontWeight: "bold" } as TextStyle,
   fieldLabel: { ...BASE, fontSize: 13, color: color.lightGrey } as TextStyle,
-  secondary: { ...BASE, color: color.white } as TextStyle,
+  secondary: { ...BASE, color: color.black } as TextStyle,
 }
 
 export type TextPresets = keyof typeof presets

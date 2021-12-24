@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react"
-import { View, SafeAreaView, Modal, FlatList } from "react-native"
-import { StackScreenProps } from "@react-navigation/stack"
+import { View, SafeAreaView, Modal } from "react-native"
+import { DrawerScreenProps } from "@react-navigation/drawer"
 import { observer } from "mobx-react-lite"
 import {
   Button,
@@ -12,71 +12,35 @@ import {
   AutoImage,
 } from "../../components"
 import { NavigatorParamList } from "../../navigators"
-import { CONTENT, BAR, FOOTER_CONTENT, FULL, ICON, TEXTAREA, TILE, TITLE } from "./styles"
+import {  BAR, FOOTER_CONTENT, FULL, ICON, MODAL } from "./styles"
 import { useStores } from "../../models"
 import { ListItemType } from "../../models/games-store/game"
 import { ImagePicker } from "../../components/image-picker/image-picker"
-import { Swipeable } from "react-native-gesture-handler"
+import { Swipeable } from "../../components/swipeable/swipeable"
 
-export const MainScreen: FC<StackScreenProps<NavigatorParamList, "main">> = observer(
+export const MainScreen: FC<DrawerScreenProps<NavigatorParamList, "main">> = observer(
   ({ navigation }) => {
-    const nextScreen = () => navigation.navigate("demo")
-    const [isTextEditorOpen, useOpenTextEditor] = useState<boolean>(false)
+    const [isTextEditorOpen, setTextEditor] = useState<boolean>(false)
     const inputRef = React.useRef(null);
-    const [updatedItemText, useUpdateItemText] = useState<string>()
-    const { gamesStore: { games, createTextItem, deleteItem } } = useStores()
+    const [updatedItemText, setItemText] = useState<string>()
+    const { gamesStore: { games, lastViewed, createTextItem, deleteItem } } = useStores()
 
-    const viewedGame = games?.[0]
+    const viewedGame = games?.find(g => g.id === lastViewed)
     const sortedList = viewedGame?.list?.slice().sort((a, b) => b.order - a.order)
-    const row: Array<any> = [];
-    let prevOpenedRow;
 
-    const renderItem = ({ item, index }, onClick) => {
-      const closeRow = (index) => {
-        if (prevOpenedRow && prevOpenedRow !== row[index]) {
-          prevOpenedRow.close();
-        }
-        prevOpenedRow = row[index];
-      };
-  
-      const renderRightActions = (progress, dragX, onClick) => {
-        return (
-          <Button onPress={onClick} preset="cancel" textKey="delete"></Button>
-        );
-      };
-  
-      return (
-        <Swipeable
-          renderRightActions={(progress, dragX) =>
-            renderRightActions(progress, dragX, onClick)
-          }
-          onSwipeableOpen={() => closeRow(index)}
-          ref={(ref) => (row[index] = ref)}>
-          <View
-            style={TILE}>
-            {item.type === ListItemType.photo ?
-        <AutoImage source={{uri: item.content}} key={item.id} type="image" />
-          : <Text style={CONTENT} key={item.id}>
-            {item.content}
-          </Text>}
-          </View>
-        </Swipeable>
-      );
-    };
     return (
       <>
-      <Header style={BAR} headerText={viewedGame?.name} headerId={viewedGame?.id} />
+      <Header style={BAR} headerText={viewedGame?.name} headerId={viewedGame?.id} navigation={navigation} />
       <View testID="WelcomeScreen" style={FULL}>
         <GradientBackground set={'purple'} />
-        <FlatList
+        <Swipeable
         data={sortedList}
-        renderItem={(v) =>
-          renderItem(v, () => {
-            console.log('WAHT', v)
-            deleteItem(viewedGame?.id, v.item.id);
-          })
-        }
-        keyExtractor={(item) => item.id.toString()}></FlatList>
+        deleteAction={(id) => deleteItem(viewedGame?.id, id)}
+        renderChildren={(item) => item.type === ListItemType.photo ?
+          <AutoImage source={{uri: item.content}} key={item.id} type="image" />
+            : <Text key={item.id}>
+              {item.content}
+            </Text>} />
         <Modal
         animationType="none"
         visible={isTextEditorOpen}
@@ -87,18 +51,18 @@ export const MainScreen: FC<StackScreenProps<NavigatorParamList, "main">> = obse
           return () => clearTimeout(timeout)
         }}
         onRequestClose={() => {
-          useOpenTextEditor(false);
+          setTextEditor(false);
         }}
       >
         <GradientBackground set={'purple'} />
-        <View style={FULL}>
-          <TextField multiline onChangeText={useUpdateItemText} forwardedRef={inputRef} numberOfLines={15} textAlignVertical="top" style={TEXTAREA} />
+        <View style={[FULL, MODAL]}>
+          <TextField multiline onChangeText={setItemText} forwardedRef={inputRef} numberOfLines={15} textAlignVertical="top" />
 
           <SafeAreaView style={FOOTER_CONTENT}>
-              <Button preset="cancel" onPress={() => useOpenTextEditor(false)} textKey="cancel"></Button>
+              <Button preset="cancel" onPress={() => setTextEditor(false)} textKey="cancel"></Button>
               <Button preset="confirm" onPress={() => {
                 createTextItem(viewedGame?.id, updatedItemText)
-                useOpenTextEditor(false)
+                setTextEditor(false)
               }} textKey="ok">
               </Button>
           </SafeAreaView>
@@ -106,10 +70,10 @@ export const MainScreen: FC<StackScreenProps<NavigatorParamList, "main">> = obse
         </Modal>
         <SafeAreaView style={BAR}>
           <View style={FOOTER_CONTENT}>
-          <Button preset="primary" onPress={() => useOpenTextEditor(!isTextEditorOpen)}>
+          <Button preset="primary" onPress={() => setTextEditor(!isTextEditorOpen)}>
              <Icon style={ICON} icon={"edit"} />
           </Button>
-          <Text style={TITLE} preset="header" textKey="or" />
+          <Text preset={'header'} textKey="or" />
           <ImagePicker gameId={viewedGame?.id} />
           </View>
         </SafeAreaView>

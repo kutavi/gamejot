@@ -4,6 +4,7 @@
   "back": "Back",
   "or": "OR",
   "delete": "Delete",
+  "add_game": "Add new game",
   "errors": {
     "genericError": "Something went wrong!",
     "reset": "Reset"
