@@ -59,7 +59,7 @@ export const FOOTER_CONTENT: ViewStyle = {
   paddingVertical: spacing[4],
   paddingHorizontal: spacing[4],
   flexDirection: "row",
-  justifyContent: "space-between",
+  justifyContent: "space-around",
 }
 
 export const ICON: ImageStyle = {

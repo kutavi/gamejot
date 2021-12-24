@@ -47,9 +47,7 @@ export const MainScreen: FC<StackScreenProps<NavigatorParamList, "main">> = obse
           )}
         </Screen>
         <Modal
-        animationType="slide"
-      //  style={{margin: 0, height: 100}}
-     //   presentationStyle={'overFullScreen'}
+        animationType="none"
         visible={isTextEditorOpen}
         onShow={() => {
           const timeout = setTimeout(() => {

@@ -33,24 +33,22 @@ export function Header(props: HeaderProps) {
   
   const { gamesStore: {updateGameName, createGame} } = useStores()
 
-  const toggleInput = (value) => {
-    useEdit(value)
+  const saveInput = () => {
+    headerId ? updateGameName(headerId, headerTitle) : createGame(headerTitle)
+    useEdit(false)
   }
 
   return (
     <View style={[ROOT, style]}>
       <View style={TITLE_MIDDLE}>
          {isEdited ? 
-         <TextField autoFocus style={INPUT} onChangeText={useUpdateText} defaultValue={headerTitle} />
+         <TextField autoFocus style={INPUT} onChangeText={useUpdateText} defaultValue={headerTitle} cancelEditOnBackPress={() => useEdit(false)} saveEditOnEnter={saveInput} />
          : 
-         <Button preset="link" onPress={() => toggleInput(true)}><Text style={[TITLE, titleStyle]} text={displayText} preset='header' />
+         <Button preset="link" onPress={() => useEdit(true)}><Text style={[TITLE, titleStyle]} text={displayText} preset='header' />
         </Button>}
       </View>
       {isEdited && (
-        <Button preset="link" onPress={() => {
-          headerId ? updateGameName(headerId, headerTitle) : createGame(headerTitle)
-          toggleInput(false)
-        }}>
+        <Button preset="link" onPress={saveInput}>
           <Icon style={ICON} icon={'checked'} />
         </Button>
       )}

@@ -1,5 +1,5 @@
-import React from "react"
-import { StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle } from "react-native"
+import React, { useEffect } from "react"
+import { BackHandler, StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle } from "react-native"
 import { color } from "../../theme"
 import { translate, TransKeyPath } from "../../i18n"
 import { Text } from "../text/text"
@@ -14,6 +14,8 @@ export interface TextFieldProps extends TextInputProps {
   inputStyle?: StyleProp<TextStyle>
   preset?: keyof typeof PRESETS
   forwardedRef?: any
+  cancelEditOnBackPress?: () => void,
+  saveEditOnEnter?: () => void,
 }
 
 /**
@@ -29,6 +31,8 @@ export function TextField(props: TextFieldProps) {
     style: styleOverride,
     inputStyle: inputStyleOverride,
     forwardedRef,
+    cancelEditOnBackPress,
+    saveEditOnEnter,
     ...rest
   } = props
 
@@ -36,10 +40,20 @@ export function TextField(props: TextFieldProps) {
   const inputStyles = [INPUT, inputStyleOverride]
   const actualPlaceholder = placeholderKey ? translate(placeholderKey) : placeholder
 
+  useEffect(() => {
+      const backAction = () => {
+        cancelEditOnBackPress()
+        return true;
+      };
+      const backHandler = cancelEditOnBackPress && BackHandler.addEventListener('hardwareBackPress', backAction);
+    return () => backHandler?.remove();
+  }, []);
+
   return (
     <View style={containerStyles}>
       <Text preset="fieldLabel" textKey={labelKey} text={label} />
       <TextInput
+        onSubmitEditing={() => saveEditOnEnter && saveEditOnEnter()}
         placeholder={actualPlaceholder}
         placeholderTextColor={color.lighterGrey}
         underlineColorAndroid={color.transparent}
