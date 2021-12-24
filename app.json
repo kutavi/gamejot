@@ -23,6 +23,11 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker"
+      ]
+    ]
   }
 }

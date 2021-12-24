@@ -13,6 +13,6 @@ export const color = {
   lightGrey: "#939AA4",
   lighterGrey: "#CDD4DA",
   angry: "#dd3333",
-  deepPurple: "#5D2555",
+  deepPurple: "#20162D",
   transparent: "rgba(0, 0, 0, 0)",
 }

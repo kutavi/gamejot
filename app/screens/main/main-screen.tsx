@@ -14,32 +14,35 @@ import {
 } from "../../components"
 import { color } from "../../theme"
 import { NavigatorParamList } from "../../navigators"
-import { CONTAINER, CONTENT, FOOTER, FOOTER_CONTENT, FULL, HEADER_TITLE, ICON, TEXTAREA, TITLE } from "./styles"
+import { CONTAINER, CONTENT, FOOTER, FOOTER_CONTENT, FULL, HEADER_TITLE, ICON, IMAGE, SEPARATOR, TEXTAREA, TITLE } from "./styles"
 import { useStores } from "../../models"
-const image = require("./images.jpg")
-
+import { ListItemType } from "../../models/games-store/game"
+import { ImagePicker } from "../../components/image-picker/image-picker"
 
 export const MainScreen: FC<StackScreenProps<NavigatorParamList, "main">> = observer(
   ({ navigation }) => {
-    const [isTextEditorOpen, openTextEditor] = useState<boolean>(false)
     const nextScreen = () => navigation.navigate("demo")
-    const { gamesStore: { games } } = useStores()
+    const [isTextEditorOpen, useOpenTextEditor] = useState<boolean>(false)
+    const [updatedItemText, useUpdateItemText] = useState<string>()
+    const { gamesStore: { games, createTextItem } } = useStores()
 
-    const viewedGame = games?.[0] || {}
-console.log('GAMESS', games[0])
-    const gameSavedItems = [{text: 'this text here is a memo', type: 'text'}, {type: 'photo', image}]
+    const viewedGame = games?.[0]
+    const sortedList = viewedGame?.list?.slice().sort((a, b) => b.order - a.order)
     return (
       <>
-      <Header style={FOOTER} titleStyle={HEADER_TITLE} headerText={viewedGame.name} headerId={viewedGame.id} />
+      <Header style={FOOTER} titleStyle={HEADER_TITLE} headerText={viewedGame?.name} headerId={viewedGame?.id} />
       <View testID="WelcomeScreen" style={FULL}>
         <GradientBackground set={'purple'} />
         <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
-          {gameSavedItems.map(item => 
-          item.type === 'photo' ?
-          <AutoImage source={item.image} />
-            : <Text style={CONTENT}>
-              {item.text}
-            </Text>
+          {sortedList?.map(item => 
+          <>
+          {item.type === ListItemType.photo ?
+          <AutoImage source={{uri: item.content}} key={item.id} type="image" style={IMAGE}  />
+            : <Text style={CONTENT} key={item.id}>
+              {item.content}
+            </Text>}
+            <View style={SEPARATOR} />
+          </>
           )}
         </Screen>
         <Modal
@@ -48,32 +51,33 @@ console.log('GAMESS', games[0])
      //   presentationStyle={'overFullScreen'}
         visible={isTextEditorOpen}
         onRequestClose={() => {
-          openTextEditor(false);
+          useOpenTextEditor(false);
         }}
       >
         <GradientBackground set={'purple'} />
         <View style={FULL}>
-          <TextField multiline autoFocus numberOfLines={10} textAlignVertical="top" style={TEXTAREA} />
+          <TextField multiline onChangeText={useUpdateItemText} autoFocus numberOfLines={15} textAlignVertical="top" style={TEXTAREA} />
 
-          <View style={FOOTER_CONTENT}>
-              <Button preset="link" onPress={() => openTextEditor(false)}>
+          <SafeAreaView style={FOOTER_CONTENT}>
+              <Button preset="link" onPress={() => useOpenTextEditor(false)}>
                 <Icon style={ICON} icon={"close"} />
               </Button>
-              <Button preset="link" onPress={() => openTextEditor(false)}>
+              <Button preset="link" onPress={() => {
+                createTextItem(viewedGame?.id, updatedItemText)
+                useOpenTextEditor(false)
+              }}>
                 <Icon style={ICON} icon={"checked"} />
               </Button>
-              </View>
+          </SafeAreaView>
           </View>
         </Modal>
         <SafeAreaView style={FOOTER}>
           <View style={FOOTER_CONTENT}>
-          <Button preset="link" onPress={() => openTextEditor(!isTextEditorOpen)}>
+          <Button preset="link" onPress={() => useOpenTextEditor(!isTextEditorOpen)}>
              <Icon style={ICON} icon={"edit"} />
           </Button>
           <Text style={TITLE} preset="header" textKey="or" />
-          <Button preset="link" onPress={() => null}>
-             <Icon style={ICON} icon={"camera"} />
-          </Button>
+          <ImagePicker gameId={viewedGame?.id} />
           </View>
         </SafeAreaView>
       </View>

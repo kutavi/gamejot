@@ -1,6 +1,7 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
-import { GameModel, GameSnapshot } from "./game"
+import { GameModel, GameSnapshot, ListItemType } from "./game"
 import { withEnvironment } from "../extensions/with-environment"
+import { generateId, generateOrder } from "../../utils/helpers"
 
 export const GamesStoreModel = types
   .model("GamesStore")
@@ -16,8 +17,33 @@ export const GamesStoreModel = types
       self.games.replace(updatedGames)
     },
     createGame: (newGameName: string) => {
-      const id = self.games.length ? Math.max(...self.games.map((g) => g.id)) : 0
-      self.games.push({ id: id + 1, name: newGameName })
+      const id = generateId(self.games)
+      const newGames = self.games.concat([{ id, name: newGameName }])
+      self.games.replace(newGames)
+    },
+    createTextItem: (gameId: number, textContent: string) => {
+      const listToUpdate = self.games.find((g) => g.id === gameId).list
+      const id = generateId(listToUpdate)
+      const order = generateOrder(listToUpdate)
+      const newItem = { type: ListItemType.text, content: textContent, order, id }
+      const updatedGames = self.games.map((game) =>
+        game.id === gameId
+          ? { ...game, list: game.list.length ? game.list.concat(newItem) : [newItem] }
+          : game,
+      )
+      self.games.replace(updatedGames)
+    },
+    createPhotoItem: (gameId: number, uri: string) => {
+      const listToUpdate = self.games.find((g) => g.id === gameId).list
+      const id = generateId(listToUpdate)
+      const order = generateOrder(listToUpdate)
+      const newItem = { type: ListItemType.photo, content: uri, order, id }
+      const updatedGames = self.games.map((game) =>
+        game.id === gameId
+          ? { ...game, list: game.list.length ? game.list.concat(newItem) : [newItem] }
+          : game,
+      )
+      self.games.replace(updatedGames)
     },
   }))
 // .actions((self) => ({

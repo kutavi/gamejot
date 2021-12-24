@@ -41,10 +41,20 @@ export const CONTENT: TextStyle = {
   color: "#BAB6C8",
   fontSize: 15,
   lineHeight: 22,
-  marginBottom: spacing[5],
+  marginTop: spacing[3],
+  marginBottom: spacing[3],
 }
 
-export const FOOTER: ViewStyle = { backgroundColor: "#20162D" }
+export const IMAGE: ImageStyle = {
+  marginTop: spacing[3],
+  marginBottom: spacing[3],
+}
+
+export const SEPARATOR = {
+  borderBottomColor: color.orangeDarker,
+  borderBottomWidth: 1,
+}
+export const FOOTER: ViewStyle = { backgroundColor: color.deepPurple }
 export const FOOTER_CONTENT: ViewStyle = {
   paddingVertical: spacing[4],
   paddingHorizontal: spacing[4],
