@@ -24,7 +24,7 @@ export const ImagePicker = ({gameId}) => {
   };
 
   return (
-      <Button preset="link" onPress={pickImage}>
+      <Button preset="primary" onPress={pickImage}>
           <Icon style={ICON} icon={"camera"} />
       </Button>
   );

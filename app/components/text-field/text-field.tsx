@@ -18,9 +18,6 @@ export interface TextFieldProps extends TextInputProps {
   saveEditOnEnter?: () => void,
 }
 
-/**
- * A component which has a label and an input together.
- */
 export function TextField(props: TextFieldProps) {
   const {
     placeholderKey,

@@ -44,12 +44,11 @@ export function Header(props: HeaderProps) {
          {isEdited ? 
          <TextField autoFocus style={INPUT} onChangeText={useUpdateText} defaultValue={headerTitle} cancelEditOnBackPress={() => useEdit(false)} saveEditOnEnter={saveInput} />
          : 
-         <Button preset="link" onPress={() => useEdit(true)}><Text style={[TITLE, titleStyle]} text={displayText} preset='header' />
+         <Button preset="link" onPress={() => useEdit(true)}><Text style={TITLE} text={displayText} preset='header' />
         </Button>}
       </View>
       {isEdited && (
-        <Button preset="link" onPress={saveInput}>
-          <Icon style={ICON} icon={'checked'} />
+        <Button preset="confirm" onPress={saveInput} textKey="ok">
         </Button>
       )}
     </View>

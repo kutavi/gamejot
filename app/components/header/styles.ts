@@ -1,5 +1,5 @@
 import { ImageStyle, TextStyle, ViewStyle } from "react-native"
-import { spacing } from "../../theme"
+import { color, spacing } from "../../theme"
 
 export const ROOT: ViewStyle = {
   flexDirection: "row",
@@ -11,9 +11,7 @@ export const ROOT: ViewStyle = {
 }
 
 export const TITLE: TextStyle = {
-  textAlign: "center",
-  paddingBottom: spacing[3],
-  paddingTop: spacing[3],
+  color: color.white,
 }
 export const TITLE_MIDDLE: ViewStyle = { flex: 1, justifyContent: "center" }
 export const ICON: ImageStyle = { width: 24, height: 24 }

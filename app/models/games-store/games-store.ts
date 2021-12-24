@@ -26,10 +26,9 @@ export const GamesStoreModel = types
       const id = generateId(listToUpdate)
       const order = generateOrder(listToUpdate)
       const newItem = { type: ListItemType.text, content: textContent, order, id }
+      const newList = listToUpdate ? listToUpdate.concat(newItem) : [newItem]
       const updatedGames = self.games.map((game) =>
-        game.id === gameId
-          ? { ...game, list: game.list.length ? game.list.concat(newItem) : [newItem] }
-          : game,
+        game.id === gameId ? { ...game, list: newList } : game,
       )
       self.games.replace(updatedGames)
     },
@@ -38,10 +37,15 @@ export const GamesStoreModel = types
       const id = generateId(listToUpdate)
       const order = generateOrder(listToUpdate)
       const newItem = { type: ListItemType.photo, content: uri, order, id }
+      const newList = listToUpdate ? listToUpdate.concat(newItem) : [newItem]
       const updatedGames = self.games.map((game) =>
-        game.id === gameId
-          ? { ...game, list: game.list.length ? game.list.concat(newItem) : [newItem] }
-          : game,
+        game.id === gameId ? { ...game, list: newList } : game,
+      )
+      self.games.replace(updatedGames)
+    },
+    deleteItem: (gameId: number, itemId: number) => {
+      const updatedGames = self.games.map((game) =>
+        game.id === gameId ? { ...game, list: game.list.filter((l) => l.id !== itemId) } : game,
       )
       self.games.replace(updatedGames)
     },

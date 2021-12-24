@@ -16,18 +16,7 @@ export const HEADER: TextStyle = {
   paddingBottom: spacing[4] + spacing[1],
   paddingHorizontal: 0,
 }
-export const HEADER_TITLE: TextStyle = {
-  ...TEXT,
-  ...BOLD,
-  fontSize: 12,
-  lineHeight: 15,
-  textAlign: "center",
-  letterSpacing: 1.5,
-}
-export const TITLE_WRAPPER: TextStyle = {
-  ...TEXT,
-  textAlign: "center",
-}
+
 export const TITLE: TextStyle = {
   ...TEXT,
   ...BOLD,
@@ -41,34 +30,29 @@ export const CONTENT: TextStyle = {
   color: "#BAB6C8",
   fontSize: 15,
   lineHeight: 22,
-  marginTop: spacing[3],
-  marginBottom: spacing[3],
 }
 
-export const IMAGE: ImageStyle = {
-  marginTop: spacing[3],
-  marginBottom: spacing[3],
+export const TILE = {
+  borderColor: "rgb(99 84 100)",
+  borderWidth: 1,
+  padding: 12,
+  backgroundColor: color.deepPurple,
 }
-
-export const SEPARATOR = {
-  borderBottomColor: color.orangeDarker,
-  borderBottomWidth: 1,
-}
-export const FOOTER: ViewStyle = { backgroundColor: color.deepPurple }
+export const BAR: ViewStyle = { backgroundColor: color.deepPurple }
 export const FOOTER_CONTENT: ViewStyle = {
-  paddingVertical: spacing[4],
-  paddingHorizontal: spacing[4],
+  paddingVertical: spacing[2],
+  paddingHorizontal: spacing[2],
   flexDirection: "row",
   justifyContent: "space-around",
+  alignItems: "center",
 }
 
 export const ICON: ImageStyle = {
-  width: 48,
-  height: 48,
+  width: 46,
+  height: 46,
 }
 
 export const TEXTAREA: TextStyle = {
   margin: 24,
   padding: 12,
-  backgroundColor: "white",
 }

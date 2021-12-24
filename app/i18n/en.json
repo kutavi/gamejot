@@ -3,6 +3,7 @@
   "cancel": "Cancel",
   "back": "Back",
   "or": "OR",
+  "delete": "Delete",
   "errors": {
     "genericError": "Something went wrong!"
   },

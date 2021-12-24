@@ -15,9 +15,11 @@ const BASE_TEXT: TextStyle = {
 
 export const viewPresets: Record<string, ViewStyle> = {
   primary: { ...BASE_VIEW, backgroundColor: color.orange } as ViewStyle,
-
+  confirm: { ...BASE_VIEW, backgroundColor: color.green },
+  cancel: { ...BASE_VIEW, backgroundColor: color.angry },
   link: {
     ...BASE_VIEW,
+    color: color.white,
     paddingHorizontal: 0,
     paddingVertical: 0,
     alignItems: "flex-start",
@@ -25,7 +27,9 @@ export const viewPresets: Record<string, ViewStyle> = {
 }
 
 export const textPresets: Record<ButtonPresetNames, TextStyle> = {
-  primary: { ...BASE_TEXT, fontSize: 9, color: color.white } as TextStyle,
+  primary: { ...BASE_TEXT, fontSize: 16, color: color.white } as TextStyle,
+  confirm: { ...BASE_TEXT, fontSize: 16, color: color.white },
+  cancel: { ...BASE_TEXT, fontSize: 16, color: color.white },
   link: {
     ...BASE_TEXT,
     color: color.black,
