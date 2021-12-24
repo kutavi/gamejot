@@ -9,8 +9,7 @@ export const ImagePicker = ({gameId}) => {
   const { gamesStore: { createPhotoItem } } = useStores()
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    const result = await ImagePickerExpo.launchImageLibraryAsync({
+    const result = await ImagePickerExpo.launchCameraAsync({
       mediaTypes: ImagePickerExpo.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
@@ -25,10 +24,8 @@ export const ImagePicker = ({gameId}) => {
   };
 
   return (
-    <>
       <Button preset="link" onPress={pickImage}>
           <Icon style={ICON} icon={"camera"} />
       </Button>
-    </>
   );
 }

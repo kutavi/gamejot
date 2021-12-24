@@ -23,6 +23,7 @@ export const MainScreen: FC<StackScreenProps<NavigatorParamList, "main">> = obse
   ({ navigation }) => {
     const nextScreen = () => navigation.navigate("demo")
     const [isTextEditorOpen, useOpenTextEditor] = useState<boolean>(false)
+    const inputRef = React.useRef(null);
     const [updatedItemText, useUpdateItemText] = useState<string>()
     const { gamesStore: { games, createTextItem } } = useStores()
 
@@ -50,13 +51,19 @@ export const MainScreen: FC<StackScreenProps<NavigatorParamList, "main">> = obse
       //  style={{margin: 0, height: 100}}
      //   presentationStyle={'overFullScreen'}
         visible={isTextEditorOpen}
+        onShow={() => {
+          const timeout = setTimeout(() => {
+          inputRef.current.focus()
+          }, 100);
+          return () => clearTimeout(timeout)
+        }}
         onRequestClose={() => {
           useOpenTextEditor(false);
         }}
       >
         <GradientBackground set={'purple'} />
         <View style={FULL}>
-          <TextField multiline onChangeText={useUpdateItemText} autoFocus numberOfLines={15} textAlignVertical="top" style={TEXTAREA} />
+          <TextField multiline onChangeText={useUpdateItemText} forwardedRef={inputRef} numberOfLines={15} textAlignVertical="top" style={TEXTAREA} />
 
           <SafeAreaView style={FOOTER_CONTENT}>
               <Button preset="link" onPress={() => useOpenTextEditor(false)}>
