@@ -18,44 +18,10 @@ const HEADER: TextStyle = {
   paddingHorizontal: spacing[4],
   paddingTop: spacing[3],
 }
-const HEADER_TITLE: TextStyle = {
-  fontSize: 12,
-  fontWeight: "bold",
-  letterSpacing: 1.5,
-  lineHeight: 15,
-  textAlign: "center",
-}
-const LIST_CONTAINER: ViewStyle = {
-  alignItems: "center",
-  flexDirection: "row",
-  padding: 10,
-}
-const IMAGE: ImageStyle = {
-  borderRadius: 35,
-  height: 65,
-  width: 65,
-}
-const LIST_TEXT: TextStyle = {
-  marginLeft: 10,
-}
-const FLAT_LIST: ViewStyle = {
-  paddingHorizontal: spacing[4],
-}
 
 export const DemoListScreen: FC<StackScreenProps<NavigatorParamList, "demoList">> = observer(
   ({ navigation }) => {
     const goBack = () => navigation.goBack()
-
-    const { characterStore } = useStores()
-    const { characters } = characterStore
-
-    useEffect(() => {
-      async function fetchData() {
-        await characterStore.getCharacters()
-      }
-
-      fetchData()
-    }, [])
 
     return (
       <View testID="DemoListScreen" style={FULL}>
@@ -63,23 +29,9 @@ export const DemoListScreen: FC<StackScreenProps<NavigatorParamList, "demoList">
         <Screen style={CONTAINER} preset="fixed" backgroundColor={color.transparent}>
           <Header
             headerText="demoListScreen.title"
-            leftIcon="back"
+            leftIcon="menu"
             onLeftPress={goBack}
             style={HEADER}
-            titleStyle={HEADER_TITLE}
-          />
-          <FlatList
-            contentContainerStyle={FLAT_LIST}
-            data={[...characters]}
-            keyExtractor={(item) => String(item.id)}
-            renderItem={({ item }) => (
-              <View style={LIST_CONTAINER}>
-                <Image source={{ uri: item.image }} style={IMAGE} />
-                <Text style={LIST_TEXT}>
-                  {item.name} ({item.status})
-                </Text>
-              </View>
-            )}
           />
         </Screen>
       </View>

@@ -33,12 +33,6 @@ const TITLE_ERROR: TextStyle = {
   paddingVertical: 15,
 }
 
-const FRIENDLY_SUBTITLE: TextStyle = {
-  color: color.black,
-  fontWeight: "normal",
-  paddingVertical: 15,
-}
-
 const CONTENT_ERROR: TextStyle = {
   color: color.angry,
   fontWeight: "bold",
@@ -67,15 +61,14 @@ export const ErrorComponent = (props: ErrorComponentProps) => {
   return (
     <View style={CONTAINER}>
       <Icon style={ICON} icon="bug" />
-      <Text style={TITLE_ERROR} textKey={"errorScreen.title"} />
-      <Text style={FRIENDLY_SUBTITLE} textKey={"errorScreen.friendlySubtitle"} />
+      <Text style={TITLE_ERROR} textKey={"errors.genericError"} />
       <View style={ERROR_DETAILS_CONTAINER}>
         <ScrollView>
           <Text selectable style={CONTENT_ERROR} text={`${props.error}`} />
           {/* <Text selectable style={CONTENT_BACKTRACE} text={`${props.errorInfo.componentStack}`} /> */}
         </ScrollView>
       </View>
-      <Button style={BTN_RESET} onPress={props.onReset} textKey="errorScreen.reset" />
+      <Button style={BTN_RESET} onPress={props.onReset} textKey="errors.reset" />
     </View>
   )
 }

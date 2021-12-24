@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import * as ImagePickerExpo from 'expo-image-picker';
 import { Icon } from '../icon/icon';
 import { ICON } from '../../screens/main/styles';
@@ -11,14 +11,12 @@ export const ImagePicker = ({gameId}) => {
   const pickImage = async () => {
     const result = await ImagePickerExpo.launchCameraAsync({
       mediaTypes: ImagePickerExpo.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
+      //  allowsEditing: true,
+      //  aspect: [4, 3],
       quality: 1,
     });
 
-    console.log(result);
-
-    if (!result.cancelled) {
+    if (result.cancelled === false) {
       createPhotoItem(gameId, result.uri);
     }
   };

@@ -9,6 +9,8 @@ import { TextField } from "../text-field/text-field"
 import { IconTypes } from "../icon/icons"
 import { ICON, INPUT, ROOT, TITLE, TITLE_MIDDLE } from "./styles"
 import { useStores } from "../../models"
+import { BAR } from "../../screens/main/styles"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 export interface HeaderProps {
   headerText?: string
@@ -38,20 +40,18 @@ export function Header(props: HeaderProps) {
   }
 
   return (
-    <View style={[ROOT, style]}>
-      <View style={TITLE_MIDDLE}>
-         {isEdited ? 
-         <TextField autoFocus style={INPUT} onChangeText={useUpdateText} defaultValue={headerTitle} cancelEditOnBackPress={() => useEdit(false)} saveEditOnEnter={saveInput} />
-         : 
-         <Button preset="link" onPress={() => useEdit(true)}><Text style={TITLE} text={displayText} preset='header' />
+    <SafeAreaView style={BAR}>
+      <View style={[ROOT, style]}>
+        <View style={TITLE_MIDDLE}>
+          {isEdited ? <TextField autoFocus style={INPUT} onChangeText={useUpdateText} defaultValue={headerTitle} cancelEditOnBackPress={() => useEdit(false)} saveEditOnEnter={saveInput} />
+          : <Button preset="link" onPress={() => useEdit(true)}><Text style={TITLE} text={displayText} preset='header' />
+          </Button>}
+        </View>
+        {isEdited ? <Button preset="confirm" onPress={saveInput} textKey="ok"></Button>
+         : <Button preset="primary" onPress={() => useOpenMenu(!isMenuOpen)}>
+          <Icon style={ICON} icon={"menu"} />
         </Button>}
       </View>
-      {isEdited ? (
-        <Button preset="confirm" onPress={saveInput} textKey="ok">
-        </Button>
-      ) : <Button preset="primary" onPress={() => useOpenMenu(!isMenuOpen)}>
-        <Icon style={ICON} icon={"menu"} />
-      </Button>}
-    </View>
+    </SafeAreaView>
   )
 }

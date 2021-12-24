@@ -1,5 +1,5 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
-import { GameModel, GameSnapshot, ListItemType } from "./game"
+import { GameModel, ListItemType } from "./game"
 import { withEnvironment } from "../extensions/with-environment"
 import { generateId, generateOrder } from "../../utils/helpers"
 
@@ -50,18 +50,6 @@ export const GamesStoreModel = types
       self.games.replace(updatedGames)
     },
   }))
-// .actions((self) => ({
-//   getCharacters: async () => {
-//     const characterApi = new CharacterApi(self.environment.api)
-//     const result = await characterApi.getCharacters()
-
-//     if (result.kind === "ok") {
-//       // self.saveCharacters(result.characters)
-//     } else {
-//       __DEV__ && console.tron.log(result.kind)
-//     }
-//   },
-// }))
 
 type GameStoreType = Instance<typeof GamesStoreModel>
 export interface GameStore extends GameStoreType {}

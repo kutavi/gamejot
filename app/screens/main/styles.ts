@@ -38,7 +38,7 @@ export const TILE = {
   padding: 12,
   backgroundColor: color.deepPurple,
 }
-export const BAR: ViewStyle = { backgroundColor: color.deepPurple }
+export const BAR: ViewStyle = { backgroundColor: color.darkestPurple }
 export const FOOTER_CONTENT: ViewStyle = {
   paddingVertical: spacing[2],
   paddingHorizontal: spacing[2],

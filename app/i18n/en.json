@@ -5,7 +5,8 @@
   "or": "OR",
   "delete": "Delete",
   "errors": {
-    "genericError": "Something went wrong!"
+    "genericError": "Something went wrong!",
+    "reset": "Reset"
   },
   "enterGameTitle": "Tap to enter game title",
   "storybook": {
