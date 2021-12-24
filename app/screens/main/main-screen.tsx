@@ -53,8 +53,7 @@ export const MainScreen: FC<StackScreenProps<NavigatorParamList, "main">> = obse
             renderRightActions(progress, dragX, onClick)
           }
           onSwipeableOpen={() => closeRow(index)}
-          ref={(ref) => (row[index] = ref)}
-          rightOpenValue={-100}>
+          ref={(ref) => (row[index] = ref)}>
           <View
             style={TILE}>
             {item.type === ListItemType.photo ?
