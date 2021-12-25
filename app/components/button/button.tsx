@@ -1,7 +1,13 @@
 import * as React from "react"
-import { TouchableOpacity , StyleProp, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native"
+import {
+  TouchableOpacity,
+  StyleProp,
+  TextStyle,
+  TouchableOpacityProps,
+  ViewStyle,
+} from "react-native"
 import { Text } from "../text/text"
-import { viewPresets, textPresets , ButtonPresetNames } from "./styles"
+import { viewPresets, textPresets, ButtonPresetNames } from "./styles"
 import { TransKeyPath } from "../../i18n"
 
 export interface ButtonProps extends TouchableOpacityProps {

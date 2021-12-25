@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { View, ViewStyle, StyleProp } from "react-native"
 import { Button } from "../button/button"
 import { Icon } from "../icon/icon"
@@ -17,22 +17,20 @@ export interface HeaderProps {
   navigation: any
 }
 
-const isDefaultText = (headerText) => [translate('enterGameTitle'), translate('empty')].includes(headerText)
+const isDefaultText = (headerText) =>
+  [translate("enterGameTitle"), translate("empty")].includes(headerText)
 export function Header(props: HeaderProps) {
-  const {
-    headerText,
-    headerId,
-    style,
-    navigation,
-  } = props
+  const { headerText, headerId, style, navigation } = props
   const [isEdited, setEditMode] = useState<boolean>(false)
-  const displayText = headerText || translate('enterGameTitle')
-  const [headerTitle, setText] = useState<string>(headerText || '')
-  
-  const { gamesStore: {updateGameName} } = useStore()
+  const displayText = headerText || translate("enterGameTitle")
+  const [headerTitle, setText] = useState<string>(headerText || "")
+
+  const {
+    gamesStore: { updateGameName },
+  } = useStore()
 
   useEffect(() => {
-    setText(!isDefaultText(headerText) ? headerText : '')
+    setText(!isDefaultText(headerText) ? headerText : "")
   }, [headerText])
 
   const saveInput = () => {
@@ -43,13 +41,31 @@ export function Header(props: HeaderProps) {
   return (
     <SafeAreaView style={BAR}>
       <View style={[ROOT, style]}>
-          {isEdited ? <TextField inputStyle={INPUT} autoFocus onChangeText={setText} value={headerTitle} cancelEditOnBackPress={() => setEditMode(false)} saveEditOnEnter={saveInput} />
-          : <Button preset="link" onPress={() => setEditMode(true)} text={displayText} style={FULL} textStyle={HEADER_TITLE}>
-          </Button>}
-        {isEdited ? <Button preset="confirm" onPress={saveInput} textKey="ok" style={CONFIRM}></Button>
-         : <Button onPress={() => navigation.openDrawer()}>
-          <Icon icon={"menu"} />
-        </Button>}
+        {isEdited ? (
+          <TextField
+            inputStyle={INPUT}
+            autoFocus
+            onChangeText={setText}
+            value={headerTitle}
+            cancelEditOnBackPress={() => setEditMode(false)}
+            saveEditOnEnter={saveInput}
+          />
+        ) : (
+          <Button
+            preset="link"
+            onPress={() => setEditMode(true)}
+            text={displayText}
+            style={FULL}
+            textStyle={HEADER_TITLE}
+          ></Button>
+        )}
+        {isEdited ? (
+          <Button preset="confirm" onPress={saveInput} textKey="ok" style={CONFIRM}></Button>
+        ) : (
+          <Button onPress={() => navigation.openDrawer()}>
+            <Icon icon={"menu"} />
+          </Button>
+        )}
       </View>
     </SafeAreaView>
   )

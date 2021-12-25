@@ -1,4 +1,4 @@
-import { ImageStyle, TextStyle, ViewStyle } from "react-native"
+import { TextStyle, ViewStyle } from "react-native"
 import { color, spacing } from "../../theme"
 
 export const ROOT: ViewStyle = {

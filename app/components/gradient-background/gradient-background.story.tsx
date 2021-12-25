@@ -10,7 +10,7 @@ storiesOf("GradientBackground", module)
   .add("Style Presets", () => (
     <Story>
       <UseCase text="default/stretch" usage="Full screen background gradient.">
-        <GradientBackground set={'purple'} />
+        <GradientBackground set={"purple"} />
       </UseCase>
     </Story>
   ))

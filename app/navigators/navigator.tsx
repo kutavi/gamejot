@@ -1,10 +1,7 @@
 import React from "react"
 import { useColorScheme, View } from "react-native"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
-import {
-  createDrawerNavigator,
-  DrawerItem,
-} from "@react-navigation/drawer"
+import { createDrawerNavigator, DrawerItem } from "@react-navigation/drawer"
 import { MainScreen } from "../screens"
 import { GradientBackground, Icon, Text } from "../components"
 import { Swipeable } from "../components/swipeable/swipeable"
@@ -23,37 +20,43 @@ const CustomDrawerContent = (props) => {
   const {
     gamesStore: { games, updateLastViewed, createGame, deleteGame, reorderGames },
   } = useStore()
-  return <View {...props} style={DRAWER}>
-    <GradientBackground set={'purple'} />
-    <Swipeable
+  return (
+    <View {...props} style={DRAWER}>
+      <GradientBackground set={"purple"} />
+      <Swipeable
         data={games.slice()}
         deleteAction={(id) => {
           deleteGame(id)
         }}
         reorder={(data) => reorderGames(data)}
-        renderChildren={(game) =>
+        renderChildren={(game) => (
           <DrawerItem
             key={game.id}
-            label={game.name || translate('empty')}
+            label={game.name || translate("empty")}
             onPress={() => {
-              updateLastViewed(game.id)        
+              updateLastViewed(game.id)
               props.navigation.closeDrawer()
             }}
             style={DRAWER_MENU_ITEM}
-            labelStyle={LABEL} 
-            />}
+            labelStyle={LABEL}
+          />
+        )}
       />
       <DrawerItem
-        label={() => <View style={ACTION_CONTAINER}>
-          <Text textKey={'add_game'} style={ACTION_LABEL} />
-          <Icon icon="add" preset={'mid'} />
-        </View>}
+        label={() => (
+          <View style={ACTION_CONTAINER}>
+            <Text textKey={"add_game"} style={ACTION_LABEL} />
+            <Icon icon="add" preset={"mid"} />
+          </View>
+        )}
         onPress={() => {
           createGame()
           props.navigation.closeDrawer()
         }}
-        style={ACTION} />
-  </View>
+        style={ACTION}
+      />
+    </View>
+  )
 }
 
 interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
@@ -70,13 +73,13 @@ export const AppNavigator = (props: NavigationProps) => {
         screenOptions={{
           headerShown: false,
           swipeEnabled: false,
-        //  swipeEdgeWidth: 1000,
-        //  drawerPosition: "right"
+          //  swipeEdgeWidth: 1000,
+          //  drawerPosition: "right"
         }}
-        initialRouteName={'main'}
+        initialRouteName={"main"}
         drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
-      <Drawer.Screen name={'main'} component={MainScreen} />
+        <Drawer.Screen name={"main"} component={MainScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   )

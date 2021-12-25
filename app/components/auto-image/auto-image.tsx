@@ -1,17 +1,13 @@
 import React, { useLayoutEffect, useState } from "react"
-import {
-  Image as RNImage,
-  ImageProps as DefaultImageProps,
-  ImageURISource,
-} from "react-native"
+import { Image as RNImage, ImageProps as DefaultImageProps, ImageURISource } from "react-native"
 
 type ImageProps = DefaultImageProps & {
   source: ImageURISource
-  useRealSize?: boolean;
+  useRealSize?: boolean
 }
 
 export const AutoImage = (props: ImageProps) => {
-  const {source, useRealSize} = props
+  const { source, useRealSize } = props
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
 
   useLayoutEffect(() => {
@@ -25,5 +21,11 @@ export const AutoImage = (props: ImageProps) => {
     }
   }, [])
 
-  return <RNImage {...props} resizeMode={'contain'} style={[useRealSize ? imageSize : {}, props.style]} />
+  return (
+    <RNImage
+      {...props}
+      resizeMode={"contain"}
+      style={[useRealSize ? imageSize : {}, props.style]}
+    />
+  )
 }

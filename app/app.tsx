@@ -10,12 +10,9 @@ import { LogBox } from "react-native"
 import { useBackButtonHandler, useNavigationPersistence } from "./utils/navigation"
 import { AppNavigator, canExit } from "./navigators/navigator"
 
-LogBox.ignoreLogs([
-  "Require cycle:",
-])
+LogBox.ignoreLogs(["Require cycle:"])
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
-
 
 function App() {
   const [rootStore, setRootStore] = useState<RootStore | undefined>(undefined)

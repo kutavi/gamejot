@@ -1,5 +1,13 @@
 import React, { useEffect } from "react"
-import { BackHandler, StyleProp, TextInput, TextInputProps, TextStyle, View, ViewStyle } from "react-native"
+import {
+  BackHandler,
+  StyleProp,
+  TextInput,
+  TextInputProps,
+  TextStyle,
+  View,
+  ViewStyle,
+} from "react-native"
 import { color } from "../../theme"
 import { translate, TransKeyPath } from "../../i18n"
 import { FIELD, INPUT } from "./styles"
@@ -10,8 +18,8 @@ export interface TextFieldProps extends TextInputProps {
   style?: StyleProp<ViewStyle>
   inputStyle?: StyleProp<TextStyle>
   forwardedRef?: any
-  cancelEditOnBackPress?: () => void,
-  saveEditOnEnter?: () => void,
+  cancelEditOnBackPress?: () => void
+  saveEditOnEnter?: () => void
 }
 
 export function TextField(props: TextFieldProps) {
@@ -29,13 +37,14 @@ export function TextField(props: TextFieldProps) {
   const actualPlaceholder = placeholderKey ? translate(placeholderKey) : placeholder
 
   useEffect(() => {
-      const backAction = () => {
-        cancelEditOnBackPress()
-        return true;
-      };
-      const backHandler = cancelEditOnBackPress && BackHandler.addEventListener('hardwareBackPress', backAction);
-    return () => backHandler?.remove();
-  }, []);
+    const backAction = () => {
+      cancelEditOnBackPress()
+      return true
+    }
+    const backHandler =
+      cancelEditOnBackPress && BackHandler.addEventListener("hardwareBackPress", backAction)
+    return () => backHandler?.remove()
+  }, [])
 
   return (
     <View style={[FIELD, styleOverride]}>

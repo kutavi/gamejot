@@ -1,8 +1,15 @@
 import * as React from "react"
-import { KeyboardAvoidingView, Platform, ScrollView, StatusBar, View , StyleProp, ViewStyle } from "react-native"
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StatusBar,
+  View,
+  StyleProp,
+  ViewStyle,
+} from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { isNonScrolling, offsets, presets , KeyboardOffsets, ScreenPresets } from "./styles"
-
+import { isNonScrolling, offsets, presets, KeyboardOffsets, ScreenPresets } from "./styles"
 
 export interface ScreenProps {
   children?: React.ReactNode

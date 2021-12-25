@@ -1,7 +1,12 @@
 import * as React from "react"
-import { Text as ReactNativeText , StyleProp, TextProps as TextProperties, TextStyle } from "react-native"
-import { TextPresets , presets } from "./styles"
-import { TransKeyPath , translate } from "../../i18n"
+import {
+  Text as ReactNativeText,
+  StyleProp,
+  TextProps as TextProperties,
+  TextStyle,
+} from "react-native"
+import { TextPresets, presets } from "./styles"
+import { TransKeyPath, translate } from "../../i18n"
 
 export interface TextProps extends TextProperties {
   children?: React.ReactNode
