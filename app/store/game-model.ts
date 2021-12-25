@@ -1,9 +1,6 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
+import { ListItemType } from "../utils/consts"
 
-export enum ListItemType {
-  photo = "photo",
-  text = "text",
-}
 export const GameItemModel = types.model("GameItem").props({
   id: types.identifierNumber,
   content: types.string,

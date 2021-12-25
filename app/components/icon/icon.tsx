@@ -1,25 +1,26 @@
 import * as React from "react"
 import { View, ImageStyle, StyleProp, ViewStyle } from "react-native"
-import { AutoImage as Image } from "../auto-image/auto-image"
+import { AutoImage } from "../auto-image/auto-image"
 import { icons, IconTypes } from "./icons"
+import { IconPresets, presets } from "./styles"
 
-const ROOT: ImageStyle = {
-  resizeMode: "contain",
-}
 
 export interface IconProps {
   style?: StyleProp<ImageStyle>
   containerStyle?: StyleProp<ViewStyle>
   icon?: IconTypes
+  preset?: IconPresets
 }
 
 
 export function Icon(props: IconProps) {
-  const { style: styleOverride, icon } = props
+  const { style: styleOverride, icon, preset = 'default' } = props
 
+  const styles = [presets[preset], styleOverride]
+  
   return (
     <View>
-      <Image style={[ROOT, styleOverride]} source={icons[icon]} />
+      <AutoImage style={styles} source={icons[icon]} />
     </View>
   )
 }

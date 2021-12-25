@@ -24,9 +24,9 @@ export function Button(props: ButtonProps) {
     ...rest
   } = props
 
-  const viewStyle = viewPresets[preset] || viewPresets.primary
+  const viewStyle = viewPresets[preset]
   const viewStyles = [viewStyle, styleOverride]
-  const textStyle = textPresets[preset] || textPresets.primary
+  const textStyle = textPresets[preset]
   const textStyles = [textStyle, textStyleOverride]
 
   const content = children || <Text textKey={textKey} text={text} style={textStyles} />

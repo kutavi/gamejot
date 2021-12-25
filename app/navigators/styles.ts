@@ -20,12 +20,6 @@ export const LABEL: TextStyle = {
   fontWeight: "bold",
 }
 
-export const ICON: ImageStyle = {
-  width: 32,
-  height: 32,
-  marginRight: spacing[2],
-}
-
 export const ACTION_LABEL: TextStyle = {
   color: color.white,
   fontWeight: "bold",

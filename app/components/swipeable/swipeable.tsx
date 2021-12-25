@@ -5,8 +5,7 @@ import {
 } from "../../components"
 import {  ACTION, FULL, PLACEHOLDER, TILE } from "./styles"
 import { Swipeable as SwipeableGesture, TouchableOpacity } from "react-native-gesture-handler"
-import DraggableFlatList, {
-} from "react-native-draggable-flatlist";
+import DraggableFlatList, { RenderItemParams } from "react-native-draggable-flatlist";
 
 type DataItem = { [key: string]: any; id: number };
 
@@ -21,7 +20,7 @@ export const Swipeable = ({data, renderChildren, deleteAction, hasLeftActions, r
     const row: Array<any> = [];
     let prevOpenedRow; // remove this!
 
-    const renderItem = ({ item, drag, index }, onClick) => {
+    const renderItem = ({ item, drag, index = 0 }, onClick) => {
       const closeRow = (index) => {
         if (prevOpenedRow && prevOpenedRow !== row[index]) {
           prevOpenedRow.close();
@@ -60,7 +59,7 @@ export const Swipeable = ({data, renderChildren, deleteAction, hasLeftActions, r
     return (
       <View style={FULL}>
       <DraggableFlatList
-        data={data}
+        data={data || []}
         onDragEnd={({ data }) => reorder(data)}
         renderItem={(v) =>
           renderItem(v, () => {

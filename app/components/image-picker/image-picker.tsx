@@ -1,12 +1,11 @@
 import React from 'react';
 import * as ImagePickerExpo from 'expo-image-picker';
 import { Icon } from '../icon/icon';
-import { ICON } from '../../screens/main/styles';
 import { Button } from '../button/button';
-import { useStores } from '../../models';
+import { useStore } from '../../store';
 
 export const ImagePicker = ({gameId}) => {
-  const { gamesStore: { createPhotoItem } } = useStores()
+  const { gamesStore: { createPhotoItem } } = useStore()
 
   const pickImage = async () => {
     const result = await ImagePickerExpo.launchCameraAsync({
@@ -22,8 +21,8 @@ export const ImagePicker = ({gameId}) => {
   };
 
   return (
-      <Button preset="primary" onPress={pickImage}>
-          <Icon style={ICON} icon={"camera"} />
+      <Button onPress={pickImage}>
+          <Icon preset="big" icon={"camera"} />
       </Button>
   );
 }

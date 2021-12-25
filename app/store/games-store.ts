@@ -1,13 +1,13 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
-import { GameItem, GameModel, ListItemType } from "./game"
-import { withEnvironment } from "../extensions/with-environment"
-import { generateId } from "../../utils/helpers"
-
+import { GameItem, GameModel } from "./game-model"
+import { withEnvironment } from "./extensions/with-environment"
+import { generateId } from "../utils/helpers"
+import { ListItemType, startingId } from "../utils/consts"
 export const GamesStoreModel = types
   .model("GamesStore")
   .props({
-    games: types.optional(types.array(GameModel), []),
-    lastViewed: types.optional(types.number, 0),
+    games: types.optional(types.array(GameModel), [{ id: startingId }]),
+    lastViewed: types.optional(types.number, startingId),
   })
   .extend(withEnvironment)
   .actions((self) => ({
@@ -17,17 +17,17 @@ export const GamesStoreModel = types
       )
       self.games.replace(updatedGames)
     },
-    createGame: (newGameName: string) => {
+    createGame: () => {
       const id = generateId(self.games)
-      const newGames = self.games.concat([{ id, name: newGameName }])
+      const newGames = self.games.concat([{ id }])
       self.games.replace(newGames)
       self.lastViewed = id
     },
     deleteGame: (id: number) => {
       const updatedGames = self.games.filter((game) => game.id !== id)
-      self.games.replace(updatedGames)
+      self.games.replace(updatedGames.length ? updatedGames : [{ id: startingId }])
       if (self.lastViewed === id) {
-        self.lastViewed = updatedGames?.[0].id || 0
+        self.lastViewed = updatedGames[0]?.id || startingId
       }
     },
     deleteItem: (gameId: number, itemId: number) => {

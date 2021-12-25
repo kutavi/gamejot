@@ -1,7 +1,7 @@
 import { onSnapshot } from "mobx-state-tree"
-import { RootStoreModel, RootStore } from "./root-store"
-import { Environment } from "../environment"
-import * as storage from "../../utils/storage"
+import { RootStoreModel, RootStore } from "./store"
+import { Environment } from "./environment"
+import * as storage from "../utils/storage"
 
 const ROOT_STATE_STORAGE_KEY = "root"
 

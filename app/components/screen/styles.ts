@@ -1,21 +1,12 @@
 import { ViewStyle } from "react-native"
 import { color } from "../../theme"
 
-/**
- * All screen keyboard offsets.
- */
 export const offsets = {
   none: 0,
 }
 
-/**
- * The variations of keyboard offsets.
- */
 export type KeyboardOffsets = keyof typeof offsets
 
-/**
- * All the variations of screens.
- */
 export const presets = {
   /**
    * No scrolling. Suitable for full-screen carousels and components
@@ -37,8 +28,6 @@ export const presets = {
 
   /**
    * Scrolls. Suitable for forms or other things requiring a keyboard.
-   *
-   * Pick this one if you don't know which one you want yet.
    */
   scroll: {
     outer: {

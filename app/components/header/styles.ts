@@ -27,5 +27,3 @@ export const INPUT: ViewStyle = {
   borderTopRightRadius: 0,
   borderBottomRightRadius: 0,
 }
-
-export const ICON: ImageStyle = { width: 24, height: 24 }

@@ -12,11 +12,10 @@ export const FOOTER_CONTENT: ViewStyle = {
   alignItems: "center",
 }
 
-export const ICON: ImageStyle = {
-  width: 46,
-  height: 46,
+export const IMAGE: ImageStyle = {
+  flex: 1,
+  aspectRatio: 1.5,
 }
-
 export const MODAL: TextStyle = {
   paddingHorizontal: 24,
   paddingVertical: 24,

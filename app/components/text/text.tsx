@@ -17,8 +17,7 @@ export function Text(props: TextProps) {
   const i18nText = textKey && translate(textKey)
   const content = i18nText || text || children
 
-  const style = presets[preset] || presets.default
-  const styles = [style, styleOverride]
+  const styles = [presets[preset], styleOverride]
 
   return (
     <ReactNativeText {...rest} style={styles}>

@@ -1,12 +1,12 @@
 import { Tron } from "./tron"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { ArgType } from "reactotron-core-client"
-import { RootStore } from "../../models/root-store/root-store"
+import { RootStore } from "../store"
 import { onSnapshot } from "mobx-state-tree"
 import { ReactotronConfig, DEFAULT_REACTOTRON_CONFIG } from "./reactotron-config"
 import { mst } from "reactotron-mst"
-import { clear } from "../../utils/storage"
-import { goBack, resetRoot, navigate } from "../../navigators/navigation-utilities"
+import { clear } from "../utils/storage"
+import { goBack, resetRoot, navigate } from "../utils/navigation"
 import { Platform } from "react-native"
 
 // Teach TypeScript about the bad things we want to do.

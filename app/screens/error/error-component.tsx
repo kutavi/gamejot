@@ -47,8 +47,6 @@ const CONTENT_ERROR: TextStyle = {
 
 const ICON: ImageStyle = {
   marginTop: 30,
-  width: 64,
-  height: 64,
 }
 
 export interface ErrorComponentProps {
@@ -60,7 +58,7 @@ export interface ErrorComponentProps {
 export const ErrorComponent = (props: ErrorComponentProps) => {
   return (
     <View style={CONTAINER}>
-      <Icon style={ICON} icon="bug" />
+      <Icon style={ICON} preset="xl" icon="bug" />
       <Text style={TITLE_ERROR} textKey={"errors.genericError"} />
       <View style={ERROR_DETAILS_CONTAINER}>
         <ScrollView>
