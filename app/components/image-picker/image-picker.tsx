@@ -12,7 +12,7 @@ export const ImagePicker = ({gameId}) => {
     const result = await ImagePickerExpo.launchCameraAsync({
       mediaTypes: ImagePickerExpo.MediaTypeOptions.All,
       //  allowsEditing: true,
-      //  aspect: [4, 3],
+      // aspect: [4, 3],
       quality: 1,
     });
 

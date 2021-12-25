@@ -17,12 +17,15 @@ import { useStores } from "../../models"
 import { ListItemType } from "../../models/games-store/game"
 import { ImagePicker } from "../../components/image-picker/image-picker"
 import { Swipeable } from "../../components/swipeable/swipeable"
+import ImageViewer from "react-native-image-zoom-viewer"
+import { TouchableHighlight } from "react-native-gesture-handler"
 
 export const MainScreen: FC<DrawerScreenProps<NavigatorParamList, "main">> = observer(
   ({ navigation }) => {
     const [isTextEditorOpen, setTextEditor] = useState<boolean>(false)
     const inputRef = React.useRef(null);
     const [updatedItemText, setItemText] = useState<string>()
+    const [photoEnlarged, setPhotoEnlarged] = useState<string>()
     const { gamesStore: { games, lastViewed, createTextItem, deleteItem, reorderGameList } } = useStores()
 
     const viewedGame = games?.find(g => g.id === lastViewed)
@@ -37,10 +40,15 @@ export const MainScreen: FC<DrawerScreenProps<NavigatorParamList, "main">> = obs
         reorder={(data) => reorderGameList(viewedGame.id, data)}
         deleteAction={(id) => deleteItem(viewedGame?.id, id)}
         renderChildren={(item) => item.type === ListItemType.photo ?
-          <AutoImage source={{uri: item.content}} key={item.id} type="image" />
+          <TouchableHighlight onPress={() => setPhotoEnlarged(item.content)}>
+          <AutoImage source={{uri: item.content}} key={item.id} type="image"  />
+          </TouchableHighlight>
             : <Text key={item.id}>
               {item.content}
             </Text>} />
+        <Modal visible={!!photoEnlarged} transparent={true}>
+            <ImageViewer enableSwipeDown swipeDownThreshold={5} imageUrls={[{url: photoEnlarged}]} onCancel={() => setPhotoEnlarged(undefined)}/>
+        </Modal>
         <Modal
         animationType="none"
         visible={isTextEditorOpen}
