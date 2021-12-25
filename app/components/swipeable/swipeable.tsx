@@ -1,10 +1,12 @@
 import React from "react"
-import { View, FlatList } from "react-native"
+import { View } from "react-native"
 import {
   Button,
 } from "../../components"
-import {  ACTION, TILE } from "./styles"
-import { Swipeable as SwipeableGesture } from "react-native-gesture-handler"
+import {  ACTION, FULL, PLACEHOLDER, TILE } from "./styles"
+import { Swipeable as SwipeableGesture, TouchableOpacity } from "react-native-gesture-handler"
+import DraggableFlatList, {
+} from "react-native-draggable-flatlist";
 
 type DataItem = { [key: string]: any; id: number };
 
@@ -12,12 +14,14 @@ interface SwipeableProps {
  data: DataItem[]
  renderChildren: (item: DataItem) => JSX.Element
  deleteAction: (id: number) => void
+ reorder: (data: any) => void
+ hasLeftActions?: boolean
 }
-export const Swipeable = ({data, renderChildren, deleteAction}: SwipeableProps) => {
+export const Swipeable = ({data, renderChildren, deleteAction, hasLeftActions, reorder}: SwipeableProps) => {
     const row: Array<any> = [];
-    let prevOpenedRow;
+    let prevOpenedRow; // remove this!
 
-    const renderItem = ({ item, index }, onClick) => {
+    const renderItem = ({ item, drag, index }, onClick) => {
       const closeRow = (index) => {
         if (prevOpenedRow && prevOpenedRow !== row[index]) {
           prevOpenedRow.close();
@@ -25,7 +29,7 @@ export const Swipeable = ({data, renderChildren, deleteAction}: SwipeableProps) 
         prevOpenedRow = row[index];
       };
   
-      const renderRightActions = (progress, dragX, onClick) => {
+      const renderActions = (progress, dragX, onClick) => {
         return (
           deleteAction && <Button onPress={onClick} preset="cancel" textKey="delete" style={ACTION}></Button>
         );
@@ -34,25 +38,38 @@ export const Swipeable = ({data, renderChildren, deleteAction}: SwipeableProps) 
       return (
         <SwipeableGesture
           renderRightActions={(progress, dragX) =>
-            renderRightActions(progress, dragX, onClick)
+            !hasLeftActions && renderActions(progress, dragX, onClick)
+          }
+          renderLeftActions={(progress, dragX) =>
+            hasLeftActions && renderActions(progress, dragX, onClick)
           }
           onSwipeableOpen={() => closeRow(index)}
           ref={(ref) => (row[index] = ref)}>
+            
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onLongPress={drag}>
           <View
             style={TILE}>
             {renderChildren(item)}
           </View>
+        </TouchableOpacity>
         </SwipeableGesture>
       );
     };
     return (
-        <FlatList
+      <View style={FULL}>
+      <DraggableFlatList
         data={data}
+        onDragEnd={({ data }) => reorder(data)}
         renderItem={(v) =>
           renderItem(v, () => {
             deleteAction(v.item.id);
           })
         }
-        keyExtractor={(item) => item.id.toString()}></FlatList>
-    )
-  }
+        renderPlaceholder={() => (
+          <View style={PLACEHOLDER} />
+        )}
+        keyExtractor={(item) => item.id.toString()} />
+        </View>
+    )}

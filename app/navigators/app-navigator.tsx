@@ -3,7 +3,6 @@ import { useColorScheme, View } from "react-native"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
 import {
   createDrawerNavigator,
-  DrawerContentScrollView,
   DrawerItem,
 } from "@react-navigation/drawer"
 import { MainScreen } from "../screens"
@@ -20,17 +19,17 @@ export type NavigatorParamList = {
 const Drawer = createDrawerNavigator<NavigatorParamList>()
 
 const CustomDrawerContent = (props) => {
-  console.log('REDRAWWW')
   const {
-    gamesStore: { games, updateLastViewed, createGame, deleteGame },
+    gamesStore: { games, updateLastViewed, createGame, deleteGame, reorderGames },
   } = useStores()
-  return <DrawerContentScrollView {...props} contentContainerStyle={DRAWER}>
+  return <View {...props} style={DRAWER}>
     <GradientBackground set={'purple'} />
     <Swipeable
-        data={games}
+        data={games.slice()}
         deleteAction={(id) => {
           deleteGame(id)
         }}
+        reorder={(data) => reorderGames(data)}
         renderChildren={(game) =>
           <DrawerItem
             key={game.id}
@@ -50,20 +49,7 @@ const CustomDrawerContent = (props) => {
           props.navigation.closeDrawer()
         }}
         style={ACTION} />
-  </DrawerContentScrollView>
-}
-const AppStack = () => {
-  return (
-    <Drawer.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-      initialRouteName={'main'}
-      drawerContent={(props) => <CustomDrawerContent {...props} />}
-    >
-    <Drawer.Screen name={'main'} component={MainScreen} />
-    </Drawer.Navigator>
-  )
+  </View>
 }
 
 interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
@@ -76,7 +62,18 @@ export const AppNavigator = (props: NavigationProps) => {
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
       {...props}
     >
-      <AppStack />
+      <Drawer.Navigator
+        screenOptions={{
+          headerShown: false,
+          swipeEnabled: false,
+        //  swipeEdgeWidth: 1000,
+        //  drawerPosition: "right"
+        }}
+        initialRouteName={'main'}
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
+      >
+      <Drawer.Screen name={'main'} component={MainScreen} />
+      </Drawer.Navigator>
     </NavigationContainer>
   )
 }

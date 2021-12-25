@@ -1,7 +1,7 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
-import { GameModel, ListItemType } from "./game"
+import { GameItem, GameModel, ListItemType } from "./game"
 import { withEnvironment } from "../extensions/with-environment"
-import { generateId, generateOrder } from "../../utils/helpers"
+import { generateId } from "../../utils/helpers"
 
 export const GamesStoreModel = types
   .model("GamesStore")
@@ -26,7 +26,15 @@ export const GamesStoreModel = types
     deleteGame: (id: number) => {
       const updatedGames = self.games.filter((game) => game.id !== id)
       self.games.replace(updatedGames)
-      // self.lastViewed = id
+      if (self.lastViewed === id) {
+        self.lastViewed = updatedGames?.[0].id || 0
+      }
+    },
+    deleteItem: (gameId: number, itemId: number) => {
+      const updatedGames = self.games.map((game) =>
+        game.id === gameId ? { ...game, list: game.list.filter((l) => l.id !== itemId) } : game,
+      )
+      self.games.replace(updatedGames)
     },
     updateLastViewed: (gameId: number) => {
       self.lastViewed = gameId
@@ -34,9 +42,8 @@ export const GamesStoreModel = types
     createTextItem: (gameId: number, textContent: string) => {
       const listToUpdate = self.games.find((g) => g.id === gameId).list
       const id = generateId(listToUpdate)
-      const order = generateOrder(listToUpdate)
-      const newItem = { type: ListItemType.text, content: textContent, order, id }
-      const newList = listToUpdate ? listToUpdate.concat(newItem) : [newItem]
+      const newItem = { type: ListItemType.text, content: textContent, id }
+      const newList = listToUpdate ? [newItem].concat(listToUpdate) : [newItem]
       const updatedGames = self.games.map((game) =>
         game.id === gameId ? { ...game, list: newList } : game,
       )
@@ -45,19 +52,21 @@ export const GamesStoreModel = types
     createPhotoItem: (gameId: number, uri: string) => {
       const listToUpdate = self.games.find((g) => g.id === gameId).list
       const id = generateId(listToUpdate)
-      const order = generateOrder(listToUpdate)
-      const newItem = { type: ListItemType.photo, content: uri, order, id }
-      const newList = listToUpdate ? listToUpdate.concat(newItem) : [newItem]
+      const newItem = { type: ListItemType.photo, content: uri, id }
+      const newList = listToUpdate ? [newItem].concat(listToUpdate) : [newItem]
       const updatedGames = self.games.map((game) =>
         game.id === gameId ? { ...game, list: newList } : game,
       )
       self.games.replace(updatedGames)
     },
-    deleteItem: (gameId: number, itemId: number) => {
+    reorderGameList: (gameId: number, newList: GameItem) => {
       const updatedGames = self.games.map((game) =>
-        game.id === gameId ? { ...game, list: game.list.filter((l) => l.id !== itemId) } : game,
+        game.id === gameId ? { ...game, list: newList } : game,
       )
       self.games.replace(updatedGames)
+    },
+    reorderGames: (games) => {
+      self.games.replace(games)
     },
   }))
 

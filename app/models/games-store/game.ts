@@ -7,7 +7,6 @@ export enum ListItemType {
 export const GameItemModel = types.model("GameItem").props({
   id: types.identifierNumber,
   content: types.string,
-  order: types.number,
   type: types.enumeration<ListItemType>(Object.values(ListItemType)),
 })
 
@@ -19,6 +18,9 @@ export const GameModel = types.model("Game").props({
 
 type GameType = Instance<typeof GameModel>
 export interface Game extends GameType {}
+
+type GameItemType = Instance<typeof GameItemModel>
+export interface GameItem extends GameItemType {}
 
 type GameSnapshotType = SnapshotOut<typeof GameModel>
 export interface GameSnapshot extends GameSnapshotType {}

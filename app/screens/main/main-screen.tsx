@@ -23,10 +23,9 @@ export const MainScreen: FC<DrawerScreenProps<NavigatorParamList, "main">> = obs
     const [isTextEditorOpen, setTextEditor] = useState<boolean>(false)
     const inputRef = React.useRef(null);
     const [updatedItemText, setItemText] = useState<string>()
-    const { gamesStore: { games, lastViewed, createTextItem, deleteItem } } = useStores()
+    const { gamesStore: { games, lastViewed, createTextItem, deleteItem, reorderGameList } } = useStores()
 
     const viewedGame = games?.find(g => g.id === lastViewed)
-    const sortedList = viewedGame?.list?.slice().sort((a, b) => b.order - a.order)
 
     return (
       <>
@@ -34,7 +33,8 @@ export const MainScreen: FC<DrawerScreenProps<NavigatorParamList, "main">> = obs
       <View testID="WelcomeScreen" style={FULL}>
         <GradientBackground set={'purple'} />
         <Swipeable
-        data={sortedList}
+        data={viewedGame?.list.slice()}
+        reorder={(data) => reorderGameList(viewedGame.id, data)}
         deleteAction={(id) => deleteItem(viewedGame?.id, id)}
         renderChildren={(item) => item.type === ListItemType.photo ?
           <AutoImage source={{uri: item.content}} key={item.id} type="image" />
