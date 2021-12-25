@@ -13,12 +13,9 @@ export const GameModel = types.model("Game").props({
   list: types.optional(types.array(GameItemModel), []),
 })
 
-type GameType = Instance<typeof GameModel>
-export interface Game extends GameType {}
+export interface Game extends Instance<typeof GameModel> {}
+export interface GameSnapshot extends SnapshotOut<typeof GameModel> {}
 
-type GameItemType = Instance<typeof GameItemModel>
-export interface GameItem extends GameItemType {}
+export interface GameItem extends Instance<typeof GameItemModel> {}
 
-type GameSnapshotType = SnapshotOut<typeof GameModel>
-export interface GameSnapshot extends GameSnapshotType {}
 export const createGameDefaultModel = () => types.optional(GameModel, {})
