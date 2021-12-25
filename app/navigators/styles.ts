@@ -24,6 +24,7 @@ export const ACTION_LABEL: TextStyle = {
   color: color.white,
   fontWeight: "bold",
   fontSize: 20,
+  marginHorizontal: spacing[3],
 }
 
 export const ACTION_CONTAINER: ViewStyle = { flexDirection: "row", alignItems: "center" }

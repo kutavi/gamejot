@@ -115,7 +115,7 @@ export class Reactotron {
     if (__DEV__) {
       // configure reactotron
       Tron.configure({
-        name: this.config.name || require("../../../package.json").name,
+        name: this.config.name || require("../../package.json").name,
         host: this.config.host,
       })
 

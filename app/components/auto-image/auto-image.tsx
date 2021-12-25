@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from "react"
-import { Image as RNImage, ImageProps as DefaultImageProps, ImageURISource } from "react-native"
+import { Image as RNImage, ImageProps as DefaultImageProps, ImageURISource, Platform } from "react-native"
 
 type ImageProps = DefaultImageProps & {
   source: ImageURISource
@@ -11,7 +11,7 @@ export const AutoImage = (props: ImageProps) => {
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
 
   useLayoutEffect(() => {
-    if (source.uri) {
+    if (source.uri || Platform.OS === "web") {
       RNImage.getSize(source.uri, (width, height) => {
         setImageSize({ width, height })
       })
