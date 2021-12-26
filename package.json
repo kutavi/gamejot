@@ -1,5 +1,5 @@
 {
-  "name": "gamepalapp",
+  "name": "gamejot",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -22,8 +22,8 @@
     "test": "jest",
     "adb": "adb reverse tcp:9090 tcp:9090 && adb reverse tcp:3000 tcp:3000 && adb reverse tcp:9001 tcp:9001 && adb reverse tcp:8081 tcp:8081",
     "postinstall": "node ./bin/postInstall",
-    "build-ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
-    "build-android": "expo build:android -t apk",
+    "build-android": "eas build --platform android",
+    "build-android-apk": "eas build -p android --profile preview",
     "clean": "react-native-clean-project",
     "clean-all": "npx react-native clean-project-auto",
     "web": "expo start --web",

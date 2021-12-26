@@ -1,9 +1,9 @@
 {
-  "name": "GamePalApp",
-  "displayName": "GamePalApp",
+  "name": "Gamejot",
+  "displayName": "Gamejot",
   "expo": {
-    "name": "GamePalApp",
-    "slug": "GamePalApp",
+    "name": "Gamejot",
+    "slug": "Gamejot",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -22,8 +22,7 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Allow $(PRODUCT_NAME) to access your photos",
-        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera",
-        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
+        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera"
       }
     },
     "web": {
@@ -38,10 +37,10 @@
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.RECORD_AUDIO"
+        "android.permission.WRITE_EXTERNAL_STORAGE"
       ],
-      "package": "My.App"
+      "package": "com.app.gamejot",
+      "versionCode": 1
     }
   }
 }

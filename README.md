@@ -18,3 +18,9 @@ and run with `yarn start`
 ## Running Storybook
 
 Run with `yarn run storybook`
+
+## Build android bundle
+
+Install the eas cli with `npm install -g eas-cli`
+and create build with `yarn build:android`
+If you want to create an apk instead of a bundle use `yarn build-android-apk`

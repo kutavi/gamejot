@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef } from "react"
 import { View } from "react-native"
 import { Button } from "../../components"
 import { ACTION, FULL, PLACEHOLDER, TILE } from "./styles"
@@ -21,15 +21,15 @@ export const Swipeable = ({
   hasLeftActions,
   reorder,
 }: SwipeableProps) => {
-  const row: Array<any> = []
-  let prevOpenedRow // remove this!
+  const row = useRef<Array<any>>([])
+  const prevOpenedRow = useRef<any>()
 
   const renderItem = ({ item, drag, index = 0 }, onClick) => {
     const closeRow = (index) => {
-      if (prevOpenedRow && prevOpenedRow !== row[index]) {
-        prevOpenedRow.close()
+      if (prevOpenedRow.current && prevOpenedRow.current !== row.current[index]) {
+        prevOpenedRow.current.close()
       }
-      prevOpenedRow = row[index]
+      prevOpenedRow.current = row.current[index]
     }
 
     const renderActions = (progress, dragX, onClick) => {
@@ -49,7 +49,7 @@ export const Swipeable = ({
           hasLeftActions && renderActions(progress, dragX, onClick)
         }
         onSwipeableOpen={() => closeRow(index)}
-        ref={(ref) => (row[index] = ref)}
+        ref={(ref) => (row.current[index] = ref)}
       >
         <TouchableOpacity activeOpacity={0.7} onLongPress={drag}>
           <View style={TILE}>{renderChildren(item)}</View>

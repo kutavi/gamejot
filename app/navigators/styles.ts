@@ -27,4 +27,8 @@ export const ACTION_LABEL: TextStyle = {
   marginHorizontal: spacing[3],
 }
 
-export const ACTION_CONTAINER: ViewStyle = { flexDirection: "row", alignItems: "center" }
+export const ACTION_CONTAINER: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+}
