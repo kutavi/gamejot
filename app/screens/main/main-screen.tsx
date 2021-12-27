@@ -56,12 +56,13 @@ export const MainScreen: FC<DrawerScreenProps<NavigatorParamList, "main">> = obs
               )
             }
           />
-          <Modal visible={!!photoEnlarged} transparent={true}>
+          <Modal visible={!!photoEnlarged} transparent onRequestClose={() => setPhotoEnlarged(undefined)}>
             <ImageViewer
               enableSwipeDown
               swipeDownThreshold={5}
               imageUrls={[{ url: photoEnlarged }]}
               onCancel={() => setPhotoEnlarged(undefined)}
+              renderIndicator={() => null}
             />
           </Modal>
           <Modal
