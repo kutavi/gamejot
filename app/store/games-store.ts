@@ -19,6 +19,17 @@ export const GamesStoreModel = types
       )
       self.games.replace(games)
     },
+    updateItem: (gameId: number, itemId: number, newContent: any) => {
+      const games = self.games.map((game) =>
+        game.id === gameId
+          ? {
+              ...game,
+              list: game.list.map((l) => (l.id === itemId ? { ...l, content: newContent } : l)),
+            }
+          : game,
+      )
+      self.games.replace(games as Game[])
+    },
     createGame: () => {
       const id = generateId(self.games)
       const newGames = self.games.concat([{ id }])

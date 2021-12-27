@@ -7,11 +7,10 @@ import {
   Header,
   Text,
   GradientBackground,
-  TextField,
   Icon,
   AutoImage,
 } from "../../components"
-import { BAR, FOOTER_CONTENT, FULL, IMAGE, MODAL } from "./styles"
+import { BAR, FOOTER_CONTENT, FULL, IMAGE } from "./styles"
 import { ImagePicker } from "../../components/image-picker/image-picker"
 import { Swipeable } from "../../components/swipeable/swipeable"
 import ImageViewer from "react-native-image-zoom-viewer"
@@ -19,15 +18,14 @@ import { TouchableHighlight } from "react-native-gesture-handler"
 import { NavigatorParamList } from "../../navigators/navigator"
 import { useStore } from "../../store"
 import { ListItemType } from "../../utils/consts"
+import { EditTextArea } from "./edit-text-area"
 
 export const MainScreen: FC<DrawerScreenProps<NavigatorParamList, "main">> = observer(
   ({ navigation }) => {
-    const [isTextEditorOpen, setTextEditor] = useState<boolean>(false)
-    const inputRef = React.useRef(null)
-    const [updatedItemText, setItemText] = useState<string>()
+    const [itemToEdit, setTextEditor] = useState<any>()
     const [photoEnlarged, setPhotoEnlarged] = useState<string>()
     const {
-      gamesStore: { games, lastViewed, createTextItem, deleteItem, reorderGameList },
+      gamesStore: { games, lastViewed, deleteItem, reorderGameList, createTextItem, updateItem },
     } = useStore()
 
     const viewedGame = games.find((g) => g.id === lastViewed)
@@ -43,7 +41,7 @@ export const MainScreen: FC<DrawerScreenProps<NavigatorParamList, "main">> = obs
         <View testID="WelcomeScreen" style={FULL}>
           <GradientBackground set={"purple"} />
           <Swipeable
-            data={viewedGame?.list.slice()}
+            data={viewedGame.list.slice()}
             reorder={(data) => reorderGameList(viewedGame.id, data)}
             deleteAction={(id) => deleteItem(viewedGame.id, id)}
             renderChildren={(item) =>
@@ -52,7 +50,7 @@ export const MainScreen: FC<DrawerScreenProps<NavigatorParamList, "main">> = obs
                   <AutoImage source={{ uri: item.content }} key={item.id} style={IMAGE} />
                 </TouchableHighlight>
               ) : (
-                <Text key={item.id}>{item.content}</Text>
+                <Text onPress={() => setTextEditor(item)} key={item.id}>{item.content}</Text>
               )
             }
           />
@@ -65,49 +63,10 @@ export const MainScreen: FC<DrawerScreenProps<NavigatorParamList, "main">> = obs
               renderIndicator={() => null}
             />
           </Modal>
-          <Modal
-            animationType="none"
-            visible={isTextEditorOpen}
-            onShow={() => {
-              const timeout = setTimeout(() => {
-                inputRef.current.focus()
-              }, 100)
-              return () => clearTimeout(timeout)
-            }}
-            onRequestClose={() => {
-              setTextEditor(false)
-            }}
-          >
-            <GradientBackground set={"purple"} />
-            <View style={[FULL, MODAL]}>
-              <TextField
-                multiline
-                onChangeText={setItemText}
-                forwardedRef={inputRef}
-                numberOfLines={15}
-                textAlignVertical="top"
-              />
-
-              <SafeAreaView style={FOOTER_CONTENT}>
-                <Button
-                  preset="cancel"
-                  onPress={() => setTextEditor(false)}
-                  textKey="cancel"
-                ></Button>
-                <Button
-                  preset="confirm"
-                  onPress={() => {
-                    createTextItem(viewedGame.id, updatedItemText)
-                    setTextEditor(false)
-                  }}
-                  textKey="ok"
-                ></Button>
-              </SafeAreaView>
-            </View>
-          </Modal>
+          <EditTextArea defaultText={itemToEdit?.content} isOpen={Boolean(itemToEdit)} close={() => setTextEditor(undefined)} save={(text) => itemToEdit.id ? updateItem(viewedGame.id, itemToEdit.id, text) : createTextItem(viewedGame.id, text)} />
           <SafeAreaView style={BAR}>
             <View style={FOOTER_CONTENT}>
-              <Button onPress={() => setTextEditor(!isTextEditorOpen)}>
+              <Button onPress={() => setTextEditor({ content: '' })}>
                 <Icon preset="big" icon={"edit"} />
               </Button>
               <Text preset="header" textKey="or" />
