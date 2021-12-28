@@ -22,5 +22,8 @@ Run with `yarn run storybook`
 ## Build android bundle
 
 Install the eas cli with `npm install -g eas-cli`
-and create build with `yarn build:android`
-If you want to create an apk instead of a bundle use `yarn build-android-apk`
+and create a build with `yarn build:android` + `:release` where release is either patch, minor or major. 
+
+This step will automatically bump the version for you and start the build process on expo to create a google play ready bundle.
+
+If you want to create an apk for local testing use `yarn build:android:apk`
