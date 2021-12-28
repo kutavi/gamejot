@@ -27,3 +27,11 @@ and create a build with `yarn build:android` + `:release` where release is eithe
 This step will automatically bump the version for you and start the build process on expo to create a google play ready bundle.
 
 If you want to create an apk for local testing use `yarn build:android:apk`
+
+## Publish android bundle
+
+To publish your latest build on the store you must first [create a google service account key](https://github.com/expo/fyi/blob/main/creating-google-service-account.md). Also the first publish of the app must be done via the store before automating.
+
+Download and rename the key json file to `service-key.json` and move it to the project root folder. This will be automatically git ignored and used in the eas configuration.
+
+Run `yarn publish:android`

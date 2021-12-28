@@ -25,6 +25,7 @@
     "build:android:patch": "standard-version --release-as patch && eas build --platform android",
     "build:android:minor": "standard-version --release-as minor && eas build --platform android",
     "build:android:major": "standard-version --release-as major && eas build --platform android",
+    "publish:android": "eas submit --platform android --latest --profile testing",
     "build:android:apk": "eas build -p android --profile preview",
     "clean": "react-native-clean-project",
     "clean-all": "npx react-native clean-project-auto",

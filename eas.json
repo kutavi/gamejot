@@ -16,6 +16,16 @@
     "production": {}
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./service-key.json"
+      }
+    },
+    "testing": {
+      "android": {
+        "serviceAccountKeyPath": "./service-key.json",
+        "releaseStatus": "draft"
+      }
+    }
   }
 }

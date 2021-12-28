@@ -79,3 +79,4 @@ web-build/
 app/config/env.*.js
 !env.js
 node_modules
+service-key.json
