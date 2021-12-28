@@ -1,6 +1,6 @@
 {
   "name": "gamejot",
-  "version": "1.0.0",
+  "version": null,
   "private": true,
   "scripts": {
     "start": "expo start",
@@ -22,7 +22,7 @@
     "test": "jest",
     "adb": "adb reverse tcp:9090 tcp:9090 && adb reverse tcp:3000 tcp:3000 && adb reverse tcp:9001 tcp:9001 && adb reverse tcp:8081 tcp:8081",
     "postinstall": "node ./bin/postInstall",
-    "build-android": "eas build --platform android",
+    "build-android": "standard-version --release-as $TYPE && eas build --platform android",
     "build-android-apk": "eas build -p android --profile preview",
     "clean": "react-native-clean-project",
     "clean-all": "npx react-native clean-project-auto",
@@ -106,6 +106,8 @@
     "react-native-web": "^0.16.3",
     "react-powerplug": "1.0.0",
     "solidarity": "2.3.1",
+    "standard-version": "^7.1.0",
+    "standard-version-expo": "^1.0.3",
     "typescript": "4.2.3"
   },
   "jest": {
