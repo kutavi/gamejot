@@ -2,8 +2,8 @@ import { ViewStyle, TextStyle } from "react-native"
 import { color, spacing } from "../../theme"
 
 const BASE_VIEW: ViewStyle = {
-  paddingVertical: spacing[3],
-  paddingHorizontal: spacing[3],
+  paddingVertical: spacing[4],
+  paddingHorizontal: spacing[4],
   borderRadius: 4,
   justifyContent: "center",
   alignItems: "center",

@@ -1,11 +1,10 @@
 import { ViewStyle } from "react-native"
-import { color, spacing } from "../../theme"
+import { color } from "../../theme"
 
 const separator = "#17001a"
 export const TILE: ViewStyle = {
   borderColor: separator,
   borderWidth: 1,
-  padding: spacing[4],
   backgroundColor: color.deepPurple,
 }
 

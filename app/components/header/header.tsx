@@ -65,7 +65,7 @@ export function Header(props: HeaderProps) {
           <Button preset="confirm" onPress={saveInput} textKey="ok" style={CONFIRM} accessibilityKey="save" />
         ) : (
           <Button onPress={() => navigation.openDrawer()} accessibilityKey="open_menu">
-            <Icon icon={"menu"} />
+            <Icon icon={"menu"} preset="mid" />
           </Button>
         )}
       </View>

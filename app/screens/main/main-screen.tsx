@@ -3,7 +3,7 @@ import { View, SafeAreaView, Modal } from "react-native"
 import { DrawerScreenProps } from "@react-navigation/drawer"
 import { observer } from "mobx-react-lite"
 import { Button, Header, Text, GradientBackground, Icon, AutoImage } from "../../components"
-import { BAR, FOOTER_CONTENT, FULL, IMAGE } from "./styles"
+import { BAR, FOOTER_CONTENT, FULL, IMAGE, ITEM_IMAGE, ITEM_TEXT } from "./styles"
 import { ImagePicker } from "../../components/image-picker/image-picker"
 import { Swipeable } from "../../components/swipeable/swipeable"
 import ImageViewer from "react-native-image-zoom-viewer"
@@ -39,11 +39,13 @@ export const MainScreen: FC<DrawerScreenProps<NavigatorParamList, "main">> = obs
             deleteAction={(id) => deleteItem(viewedGame.id, id)}
             renderChildren={(item) =>
               item.type === ListItemType.photo ? (
-                <TouchableHighlight onPress={() => setPhotoEnlarged(item.content)}>
+                <TouchableHighlight onPress={() => setPhotoEnlarged(item.content)} style={ITEM_IMAGE}>
                   <AutoImage source={{ uri: item.content }} key={item.id} style={IMAGE} />
                 </TouchableHighlight>
               ) : (
-                <Text onPress={() => setTextEditor(item)} key={item.id} text={item.content} />
+                <TouchableHighlight onPress={() => setTextEditor(item)} style={ITEM_TEXT}>
+                  <Text key={item.id} text={item.content} />
+                </TouchableHighlight>
               )
             }
           />

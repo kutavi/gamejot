@@ -16,6 +16,13 @@ export const IMAGE: ImageStyle = {
   flex: 1,
   aspectRatio: 1.5,
 }
+export const ITEM_TEXT: ImageStyle = {
+  paddingHorizontal: spacing[4],
+  paddingVertical: spacing[5],
+}
+export const ITEM_IMAGE: ImageStyle = {
+  padding: spacing[3],
+}
 export const MODAL: TextStyle = {
   paddingHorizontal: 24,
   paddingVertical: 24,

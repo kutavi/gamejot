@@ -6,8 +6,8 @@ export const INPUT: TextStyle = {
   color: color.black,
   fontSize: 18,
   backgroundColor: color.white,
-  paddingHorizontal: spacing[2],
-  paddingVertical: spacing[2],
+  paddingHorizontal: spacing[3],
+  paddingVertical: spacing[3],
   borderRadius: 4,
 }
 

@@ -21,6 +21,7 @@ export const FULL: ViewStyle = {
 export const HEADER_TITLE: TextStyle = {
   fontSize: 22,
   color: color.lighterGrey,
+  paddingVertical: spacing[3],
 }
 
 export const INPUT: ViewStyle = {

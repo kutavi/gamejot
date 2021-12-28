@@ -5,7 +5,7 @@ import { createDrawerNavigator, DrawerItem } from "@react-navigation/drawer"
 import { MainScreen } from "../screens"
 import { GradientBackground, Icon, Text } from "../components"
 import { Swipeable } from "../components/swipeable/swipeable"
-import { ACTION, ACTION_CONTAINER, ACTION_LABEL, DRAWER, DRAWER_MENU_ITEM, LABEL } from "./styles"
+import { ACTION, ACTION_CONTAINER, ACTION_LABEL, DRAWER, DRAWER_MENU_CONTAINER, DRAWER_MENU_ITEM, LABEL } from "./styles"
 import { translate } from "../i18n"
 import { navigationRef } from "../utils/navigation"
 import { useStore } from "../store"
@@ -32,13 +32,13 @@ const CustomDrawerContent = (props) => {
         renderChildren={(game) => (
           <DrawerItem
             key={game.id}
-            label={game.name || translate("empty")}
+            label={() => <Text text={game.name || translate("empty")} style={DRAWER_MENU_CONTAINER} />}
             onPress={() => {
               updateLastViewed(game.id)
               props.navigation.closeDrawer()
             }}
-            style={DRAWER_MENU_ITEM}
             labelStyle={LABEL}
+            style={DRAWER_MENU_ITEM}
           />
         )}
       />
