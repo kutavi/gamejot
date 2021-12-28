@@ -44,6 +44,7 @@ export function Header(props: HeaderProps) {
         {isEdited ? (
           <TextField
             inputStyle={INPUT}
+            accessibilityKey={"enter_game"}
             autoFocus
             onChangeText={setText}
             value={headerTitle}
@@ -54,15 +55,16 @@ export function Header(props: HeaderProps) {
           <Button
             preset="link"
             onPress={() => setEditMode(true)}
+            accessibilityHint={translate('edit_title')}
             text={displayText}
             style={FULL}
             textStyle={HEADER_TITLE}
-          ></Button>
+          />
         )}
         {isEdited ? (
-          <Button preset="confirm" onPress={saveInput} textKey="ok" style={CONFIRM}></Button>
+          <Button preset="confirm" onPress={saveInput} textKey="ok" style={CONFIRM} accessibilityKey="save" />
         ) : (
-          <Button onPress={() => navigation.openDrawer()}>
+          <Button onPress={() => navigation.openDrawer()} accessibilityKey="open_menu">
             <Icon icon={"menu"} />
           </Button>
         )}

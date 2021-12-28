@@ -15,6 +15,7 @@ import { FIELD, INPUT } from "./styles"
 export interface TextFieldProps extends TextInputProps {
   placeholderKey?: TransKeyPath
   placeholder?: string
+  accessibilityKey: TransKeyPath
   style?: StyleProp<ViewStyle>
   inputStyle?: StyleProp<TextStyle>
   forwardedRef?: any
@@ -31,6 +32,7 @@ export function TextField(props: TextFieldProps) {
     forwardedRef,
     cancelEditOnBackPress,
     saveEditOnEnter,
+    accessibilityKey,
     ...rest
   } = props
 
@@ -51,6 +53,7 @@ export function TextField(props: TextFieldProps) {
       <TextInput
         onSubmitEditing={() => saveEditOnEnter && saveEditOnEnter()}
         placeholder={actualPlaceholder}
+        accessibilityLabel={translate(accessibilityKey)}
         placeholderTextColor={color.lighterGrey}
         underlineColorAndroid={color.transparent}
         style={[INPUT, inputStyleOverride]}

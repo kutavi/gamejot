@@ -1,11 +1,17 @@
 {
   "ok": "OK",
+  "save": "Save",
   "cancel": "Cancel",
   "back": "Back",
   "or": "OR",
   "delete": "Delete",
   "add_game": "Add new game",
-  "new_game": "New Game",
+  "enter_game": "Type in the game title",
+  "enter_text": "Add text",
+  "take_photo": "Take a photo",
+  "open_menu": "Open the menu",
+  "create_text": "Create a new note",
+  "edit_title": "Edit game title",
   "empty": "Untitled",
   "errors": {
     "genericError": "Something went wrong!",

@@ -21,5 +21,5 @@ export const FULL: ViewStyle = {
 
 export const PLACEHOLDER: ViewStyle = {
   flex: 1,
-  backgroundColor: color.orange,
+  backgroundColor: color.orangeDarker,
 }

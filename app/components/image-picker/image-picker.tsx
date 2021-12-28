@@ -23,7 +23,7 @@ export const ImagePicker = ({ gameId }) => {
   }
 
   return (
-    <Button onPress={pickImage}>
+    <Button onPress={pickImage} accessibilityKey="take_photo">
       <Icon preset="big" icon={"camera"} />
     </Button>
   )

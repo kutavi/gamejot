@@ -8,7 +8,7 @@ import {
 } from "react-native"
 import { Text } from "../text/text"
 import { viewPresets, textPresets, ButtonPresetNames } from "./styles"
-import { TransKeyPath } from "../../i18n"
+import { TransKeyPath, translate } from "../../i18n"
 
 export interface ButtonProps extends TouchableOpacityProps {
   textKey?: TransKeyPath
@@ -17,6 +17,7 @@ export interface ButtonProps extends TouchableOpacityProps {
   textStyle?: StyleProp<TextStyle>
   preset?: ButtonPresetNames
   children?: React.ReactNode
+  accessibilityKey?: TransKeyPath
 }
 
 export function Button(props: ButtonProps) {
@@ -26,6 +27,7 @@ export function Button(props: ButtonProps) {
     text,
     style: styleOverride,
     textStyle: textStyleOverride,
+    accessibilityKey,
     children,
     ...rest
   } = props
@@ -35,10 +37,11 @@ export function Button(props: ButtonProps) {
   const textStyle = textPresets[preset]
   const textStyles = [textStyle, textStyleOverride]
 
-  const content = children || <Text textKey={textKey} text={text} style={textStyles} />
+  const content = children || <Text disableAccessibility={Boolean(accessibilityKey)} textKey={textKey} text={text} style={textStyles} />
 
+  const accessibilityLabel = accessibilityKey ? translate(accessibilityKey) : undefined
   return (
-    <TouchableOpacity style={viewStyles} {...rest}>
+    <TouchableOpacity style={viewStyles} {...rest} accessibilityLabel={accessibilityLabel}>
       {content}
     </TouchableOpacity>
   )

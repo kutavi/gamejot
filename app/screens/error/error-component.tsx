@@ -24,7 +24,7 @@ const ERROR_DETAILS_CONTAINER: ViewStyle = {
 const BTN_RESET: ViewStyle = {
   paddingHorizontal: 40,
 
-  backgroundColor: color.orange,
+  backgroundColor: color.orangeDarker,
 }
 
 const TITLE_ERROR: TextStyle = {

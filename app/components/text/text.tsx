@@ -9,23 +9,23 @@ import { TextPresets, presets } from "./styles"
 import { TransKeyPath, translate } from "../../i18n"
 
 export interface TextProps extends TextProperties {
-  children?: React.ReactNode
   textKey?: TransKeyPath
   text?: string
   style?: StyleProp<TextStyle>
   preset?: TextPresets
+  disableAccessibility?: boolean
 }
 
 export function Text(props: TextProps) {
-  const { preset = "default", textKey, text, children, style: styleOverride, ...rest } = props
+  const { preset = "default", textKey, text, style: styleOverride, disableAccessibility, ...rest } = props
 
   const i18nText = textKey && translate(textKey)
-  const content = i18nText || text || children
+  const content = i18nText || text
 
   const styles = [presets[preset], styleOverride]
 
   return (
-    <ReactNativeText {...rest} style={styles}>
+    <ReactNativeText {...rest} accessibilityLabel={disableAccessibility ? undefined : content} style={styles}>
       {content}
     </ReactNativeText>
   )

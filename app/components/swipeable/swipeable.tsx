@@ -2,7 +2,7 @@ import React, { useRef } from "react"
 import { View } from "react-native"
 import { Button } from "../../components"
 import { ACTION, FULL, PLACEHOLDER, TILE } from "./styles"
-import { Swipeable as SwipeableGesture, TouchableOpacity } from "react-native-gesture-handler"
+import { Swipeable as SwipeableGesture } from "react-native-gesture-handler"
 import DraggableFlatList from "react-native-draggable-flatlist"
 
 type DataItem = { [key: string]: any; id: number }
@@ -51,9 +51,9 @@ export const Swipeable = ({
         onSwipeableOpen={() => closeRow(index)}
         ref={(ref) => (row.current[index] = ref)}
       >
-        <TouchableOpacity activeOpacity={0.7} onLongPress={drag}>
+        <Button activeOpacity={0.7} onLongPress={drag} preset="none">
           <View style={TILE}>{renderChildren(item)}</View>
-        </TouchableOpacity>
+        </Button>
       </SwipeableGesture>
     )
   }
