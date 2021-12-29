@@ -8,7 +8,7 @@ import { ToggleStorybook } from "../storybook/toggle-storybook"
 import { ErrorBoundary } from "./screens/error/error-boundary"
 import { LogBox } from "react-native"
 import { useBackButtonHandler, useNavigationPersistence } from "./utils/navigation"
-import { AppNavigator, canExit } from "./navigators/navigator"
+import { AppNavigator, canExit } from "./navigator/navigator"
 
 LogBox.ignoreLogs(["Require cycle:"])
 
