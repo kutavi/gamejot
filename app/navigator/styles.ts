@@ -7,10 +7,6 @@ export const DRAWER: ViewStyle = {
   paddingBottom: 0,
   paddingTop: spacing[6],
 }
-export const DRAWER_MENU_ITEM: ViewStyle = {
-  marginHorizontal: 0,
-  marginVertical: 0,
-}
 export const DRAWER_MENU_CONTAINER: ViewStyle = {
   paddingVertical: spacing[3],
   paddingHorizontal: spacing[3],
@@ -19,11 +15,6 @@ export const ACTION: ViewStyle = {
   backgroundColor: color.orange,
   marginHorizontal: 0,
   borderRadius: 0,
-}
-
-export const LABEL: TextStyle = {
-  color: color.lighterGrey,
-  fontWeight: "bold",
 }
 
 export const ACTION_LABEL: TextStyle = {

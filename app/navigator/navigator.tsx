@@ -1,11 +1,11 @@
 import React from "react"
 import { useColorScheme, View } from "react-native"
-import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
+import { NavigationContainer, DefaultTheme, DarkTheme, CommonActions } from "@react-navigation/native"
 import { createDrawerNavigator, DrawerItem } from "@react-navigation/drawer"
 import { MainScreen } from "../screens"
-import { GradientBackground, Icon, Text } from "../components"
+import { Button, GradientBackground, Icon, Text } from "../components"
 import { Swipeable } from "../components/swipeable/swipeable"
-import { ACTION, ACTION_CONTAINER, ACTION_LABEL, DRAWER, DRAWER_MENU_CONTAINER, DRAWER_MENU_ITEM, LABEL } from "./styles"
+import { ACTION, ACTION_CONTAINER, ACTION_LABEL, DRAWER, DRAWER_MENU_CONTAINER } from "./styles"
 import { translate } from "../i18n"
 import { navigationRef } from "../utils/navigation"
 import { useStore } from "../store"
@@ -20,26 +20,39 @@ const CustomDrawerContent = (props) => {
   const {
     gamesStore: { games, updateLastViewed, createGame, deleteGame, reorderGames },
   } = useStore()
+
+  const gamesState = games.slice()
+
+  // this force updates the navigation view
+  const updateState = CommonActions.setParams({
+    params: { games: gamesState.map(g => g.id) },
+  });
+
   return (
     <View {...props} style={DRAWER}>
       <GradientBackground set={"purple"} />
       <Swipeable
-        data={games.slice()}
+        data={gamesState}
         deleteAction={(id) => {
           deleteGame(id)
+          props.navigation.dispatch(updateState)
         }}
-        reorder={(data) => reorderGames(data)}
+        reorder={(data) => {
+          reorderGames(data)
+          props.navigation.dispatch(updateState)
+        }}
         renderChildren={(game) => (
-          <DrawerItem
-            key={game.id}
-            label={() => <Text text={game.name || translate("empty")} style={DRAWER_MENU_CONTAINER} />}
-            onPress={() => {
-              updateLastViewed(game.id)
-              props.navigation.closeDrawer()
-            }}
-            labelStyle={LABEL}
-            style={DRAWER_MENU_ITEM}
-          />
+        <Button
+          preset="none"
+          loadFromGesture
+          key={game.id}
+          onPress={() => {
+            updateLastViewed(game.id)
+            props.navigation.closeDrawer()
+          }}
+          style={DRAWER_MENU_CONTAINER}>
+            <Text text={game.name || translate("empty")} style={DRAWER_MENU_CONTAINER} />
+          </Button>
         )}
       />
       <DrawerItem
@@ -63,6 +76,7 @@ interface NavigationProps extends Partial<React.ComponentProps<typeof Navigation
 
 export const AppNavigator = (props: NavigationProps) => {
   const colorScheme = useColorScheme()
+
   return (
     <NavigationContainer
       ref={navigationRef}

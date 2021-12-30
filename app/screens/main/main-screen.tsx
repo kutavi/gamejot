@@ -7,7 +7,6 @@ import { BAR, FOOTER_CONTENT, FULL, IMAGE, ITEM_IMAGE, ITEM_TEXT } from "./style
 import { ImagePicker } from "../../components/image-picker/image-picker"
 import { Swipeable } from "../../components/swipeable/swipeable"
 import ImageViewer from "react-native-image-zoom-viewer"
-import { TouchableHighlight } from "react-native-gesture-handler"
 import { NavigatorParamList } from "../../navigator/navigator"
 import { useStore } from "../../store"
 import { ListItemType } from "../../utils/consts"
@@ -39,13 +38,13 @@ export const MainScreen: FC<DrawerScreenProps<NavigatorParamList, "main">> = obs
             deleteAction={(id) => deleteItem(viewedGame.id, id)}
             renderChildren={(item) =>
               item.type === ListItemType.photo ? (
-                <TouchableHighlight onPress={() => setPhotoEnlarged(item.content)} style={ITEM_IMAGE}>
+                <Button loadFromGesture preset={'none'} onPress={() => setPhotoEnlarged(item.content)} style={ITEM_IMAGE}>
                   <AutoImage source={{ uri: item.content }} key={item.id} style={IMAGE} />
-                </TouchableHighlight>
+                </Button>
               ) : (
-                <TouchableHighlight onPress={() => setTextEditor(item)} style={ITEM_TEXT}>
+                <Button loadFromGesture preset={'none'} onPress={() => setTextEditor(item)} style={ITEM_TEXT}>
                   <Text key={item.id} text={item.content} />
-                </TouchableHighlight>
+                </Button>
               )
             }
           />

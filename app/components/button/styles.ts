@@ -16,6 +16,7 @@ const BASE_TEXT: TextStyle = {
 }
 
 export const viewPresets: Record<string, ViewStyle> = {
+  none: {},
   primary: { ...BASE_VIEW, backgroundColor: color.orange } as ViewStyle,
   confirm: { ...BASE_VIEW, backgroundColor: color.green },
   cancel: { ...BASE_VIEW, backgroundColor: color.angry },
@@ -29,6 +30,7 @@ export const viewPresets: Record<string, ViewStyle> = {
 }
 
 export const textPresets: Record<ButtonPresetNames, TextStyle> = {
+  none: {},
   primary: { ...BASE_TEXT },
   confirm: { ...BASE_TEXT },
   cancel: { ...BASE_TEXT },

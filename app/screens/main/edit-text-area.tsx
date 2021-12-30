@@ -39,7 +39,7 @@ export const EditTextArea = ({ defaultText, close, save, isOpen }: EditTextAreaP
         />
 
         <SafeAreaView style={FOOTER_CONTENT}>
-          <Button preset="cancel" onPress={close} textKey="cancel"></Button>
+          <Button preset="cancel" onPress={close} textKey="cancel" />
           <Button
             preset="confirm"
             onPress={() => {
